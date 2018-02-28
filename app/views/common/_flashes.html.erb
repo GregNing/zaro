@@ -1,0 +1,11 @@
+
+<% if flash.any? %>
+    <% metion_flashes.each do |key,value| %>
+        <div class="alert alert-<%= flash_class(key) %> alert-dismissible " role="alert">
+            <strong><%= value %></strong>         
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">X</span>
+            </button>
+        </div>
+    <% end %>
+<% end %>

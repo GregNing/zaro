@@ -3,12 +3,18 @@
   <head>
     <title>Zaro</title>
     <%= csrf_meta_tags %>
-
+  
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container-fluid">
+      <div class="row">
+        <%= render 'common/flashes' %>
+        <%= render 'common/navbar' %>
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
