@@ -15,4 +15,7 @@
 //= require bootstrap/alert
 //= require bootstrap/dropdown
 //= require bootstrap-sprockets
+//= require material-kit
+//= require material.min
+//= require nouislider.min
 //= require_tree .

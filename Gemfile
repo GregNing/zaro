@@ -33,6 +33,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'bootstrap-sass'
+gem 'material_icons'
 # materialize 暫時沒使用
 #gem 'materialize-sass'
 gem 'simple_form'

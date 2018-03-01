@@ -1,11 +1,17 @@
-
 <% if flash.any? %>
     <% metion_flashes.each do |key,value| %>
-        <div class="alert alert-<%= flash_class(key) %> alert-dismissible " role="alert">
-            <strong><%= value %></strong>         
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">X</span>
-            </button>
+        <div class="alert alert-<%= flash_class(key) %>">
+            <div class="container">
+                <div class="alert-icon">
+                    <i class="material-icons">
+                    <%= icons_flashes(key) %>
+                    </i>
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">                    
+                    <span aria-hidden="true"><i class="material-icons">clear</i></span>
+                </button>
+                <%= value %>                
+            </div>            
         </div>
     <% end %>
 <% end %>
