@@ -1,0 +1,11 @@
+<%= simple_form_for [:admin, @product] do |f| %>
+    <div class="form-group">
+        <%= f.input :name, label: "商品名稱" ,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+        <%= f.input :description, label: "商品內容" ,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+        <%= f.input :quantity, label: "庫存" ,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+        <%= f.input :price, label: "價錢" ,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+    </div>
+    <div class="form-actions">
+      <%= f.submit "送出", data: { disable_with: "送出中..." } %>
+    </div>
+<% end %>
