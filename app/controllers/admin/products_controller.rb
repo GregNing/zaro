@@ -34,7 +34,7 @@ class Admin::ProductsController < ApplicationController
     def destroy
         text = @product
         @product.destroy
-        redirect_back fallback_location: root_path, alert: "已刪除#{text.name}商品!"        
+        redirect_back fallback_location: root_path, alert: "已刪除#{text.name}商品!"
     end
     private
     def product_params
