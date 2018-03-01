@@ -16,10 +16,12 @@
                         Hi!, <%= current_user.email %>
                         <b class="caret"></b>
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu">                        
+                        <% if current_user && current_user.admin? %>
                         <li> <%= link_to "管理員後台", admin_products_path %> </li>
                         <li class="divider"> </li>
                         <li>
+                        <% end %>                                                
                         <%= link_to destroy_user_session_path, method: :delete do %>
                             <i class="fa fa-sign-out">登出</i>
                         <% end %>
