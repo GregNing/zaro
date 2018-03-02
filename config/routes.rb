@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
+  namespace :account do
+    resources :orders
+  end
   namespace :admin do
     resources :products do
       member do

@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
           product_list.quantity = cart_item.quantity
           product_list.save
         end
-      redirect_to order_path(@order),notice: "#{@order.billing_name} 訂單送出成功!"
+      redirect_to order_path(@order.token),notice: "#{@order.billing_name} 訂單送出成功!"
     else
       render 'carts/checkout'
     end
@@ -28,6 +28,6 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:billing_name, :billing_address, :shipping_name, :shipping_address)
   end
   def find_order_id
-    @order = Order.find(params[:id])
+    @order = Order.find_by(token: params[:id])
   end
 end
