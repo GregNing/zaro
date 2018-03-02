@@ -4,6 +4,6 @@ class Product < ApplicationRecord
     validates :price,numericality: {greater_than: 0 ,message: "請輸入數字，價格不得為0！"}
     validates :quantity,numericality: {message: "請輸入數字！"}
     mount_uploader :image, ImageUploader
-    belongs_to :user
-    belongs_to :cart
+    belongs_to :user   
+    has_many :cart_items, dependent: :destroy
 end

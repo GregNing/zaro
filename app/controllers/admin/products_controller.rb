@@ -3,6 +3,7 @@ class Admin::ProductsController < ApplicationController
     before_action :require_admin
     before_action :find_product, except: [:index, :new, :create]
     layout "admin"
+    require 'pry'
     def index
         @products = Product.all.page(params[:page]).per(8)
     end
@@ -15,7 +16,7 @@ class Admin::ProductsController < ApplicationController
     def create
         @product = Product.new(product_params)
         @product.user = current_user        
-        if @product.save
+        if @product.save            
             redirect_to admin_products_path,notice: "新增#{@product.name}成功!"
         else
             render :new

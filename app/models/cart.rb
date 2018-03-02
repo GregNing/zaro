@@ -1,5 +1,5 @@
 class Cart < ApplicationRecord
-    has_many :cart_items
+    has_many :cart_items, dependent: :destroy
     has_many :products, through: :cart_items,source: :product
     def add_product_to_cart(product)
         product_cart = cart_items.build
@@ -15,5 +15,12 @@ class Cart < ApplicationRecord
         end
       end
       sum
+    end
+    def clean!
+        cart_items.destroy_all
+    end
+    def clear_cart_item!(product)
+        cart_item = cart_items.find_by(product: product)
+        cart_item.destroy
     end
 end
