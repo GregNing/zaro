@@ -8,6 +8,8 @@ class ProductsController < ApplicationController
         
     end
     def add_to_cart
+        extend CommonHelper
+        current_cart.add_product_to_cart(@product)  
         redirect_back fallback_location: root_path, notice: "#{@product.name}已加入購物車"        
     end
     private

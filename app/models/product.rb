@@ -5,4 +5,5 @@ class Product < ApplicationRecord
     validates :quantity,numericality: {message: "請輸入數字！"}
     mount_uploader :image, ImageUploader
     belongs_to :user
+    belongs_to :cart
 end
