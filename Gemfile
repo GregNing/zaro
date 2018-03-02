@@ -44,7 +44,8 @@ gem "mini_magick"
 gem 'devise'
 #排序
 gem 'acts_as_list'
-
+#安裝瀏覽郵件
+gem 'letter_opener', group: :development
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

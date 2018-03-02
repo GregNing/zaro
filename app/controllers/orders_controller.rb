@@ -15,6 +15,8 @@ class OrdersController < ApplicationController
           product_list.quantity = cart_item.quantity
           product_list.save
         end
+      current_cart.clean!
+      OrderMailer.notify_order_placed(@order).deliver!
       redirect_to order_path(@order.token),notice: "#{@order.billing_name} 訂單送出成功!"
     else
       render 'carts/checkout'
