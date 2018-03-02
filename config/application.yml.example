@@ -9,15 +9,3 @@
 # production:
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
-
-  production:
-    AWS_ACCESS_KEY_ID: "AKIAID7AR6TZJHRP3X5A"  # 你的 Access key ID
-    AWS_SECRET_ACCESS_KEY: "awLl/aAVJCU5WMMi0C4wMJvsG7Ye7G8CMUTcFFxj"  # 你的 Secret access key
-    AWS_REGION: "ap-northeast-1"  # 你的 S3 bucket 的 Region 位置
-    AWS_BUCKET_NAME: "zaro"  # 你设定的 bucket name
-
-  development:
-    AWS_ACCESS_KEY_ID: "AKIAID7AR6TZJHRP3X5A"  # 你的 Access key ID
-    AWS_SECRET_ACCESS_KEY: "awLl/aAVJCU5WMMi0C4wMJvsG7Ye7G8CMUTcFFxj"  # 你的 Secret access key
-    AWS_REGION: "ap-northeast-1"  # 你的 S3 bucket 的 Region 位置
-    AWS_BUCKET_NAME: "zaro"  # 你设定的 bucket name
