@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id          :integer          not null, primary key
+#  name        :string
+#  description :text
+#  price       :integer
+#  quantity    :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
+#  image       :string
+#  position    :integer
+#
+
 class Product < ApplicationRecord
     validates :name,presence: {message: "請填寫商品名稱"}  
     validates :description,presence: {message: "請填寫商品內容"}

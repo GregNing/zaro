@@ -1,4 +1,8 @@
 class CartsController < ApplicationController
+    before_action :authenticate_user!
+    def checkout
+        @order = Order.new
+    end
     def clean
         extend CommonHelper
         current_cart.clean!
