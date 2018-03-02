@@ -5,4 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create(email: "123456@gom.com",password: "123456",password_confirmation: "123456",is_admin: true)
+if  User.find_by(email: "123456@gom.com").nil?
+    u = User.build
+    u.password = "123456"
+    u.password_confirmation = "123456"
+    u.is_admin = true
+    u.save
+    puts "123456@gom.com已經建立完畢"
+else
+    puts "123456@gom.com已經存在"
+end

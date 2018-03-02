@@ -6,4 +6,7 @@ class Product < ApplicationRecord
     mount_uploader :image, ImageUploader
     belongs_to :user   
     has_many :cart_items, dependent: :destroy
+    acts_as_list
+    scope :order_position, ->{ order("position ASC") }
+    
 end

@@ -5,7 +5,7 @@ class Admin::ProductsController < ApplicationController
     layout "admin"
     require 'pry'
     def index
-        @products = Product.all.page(params[:page]).per(8)
+        @products = Product.all.order_position.page(params[:page]).per(8)
     end
     def show
         
@@ -37,6 +37,17 @@ class Admin::ProductsController < ApplicationController
         @product.destroy
         redirect_back fallback_location: root_path, alert: "已刪除#{text.name}商品!"
     end
+
+    def move_higher        
+        @product.move_higher
+        
+        redirect_back fallback_location: root_path, notice: "#{@product.name}向上移動成功!"
+    end
+    def move_lower        
+        @product.move_lower
+        redirect_back fallback_location: root_path, notice: "#{@product.name}向下移動成功!"
+    end
+    
     private
     def product_params
         params.require(:product).permit(:name, :description, :price, :quantity, :image)        
