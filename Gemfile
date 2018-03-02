@@ -48,6 +48,7 @@ gem 'acts_as_list'
 gem 'letter_opener', group: :development
 gem 'aasm'
 gem 'figaro'
+#上傳圖片所需 使用AWS
 gem 'fog'
 
 group :development, :test do
