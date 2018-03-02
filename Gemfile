@@ -48,6 +48,7 @@ gem 'acts_as_list'
 gem 'letter_opener', group: :development
 gem 'aasm'
 gem 'figaro'
+#上傳圖片所需 使用AWS
 gem 'fog'
 
 group :development, :test do
@@ -62,9 +63,10 @@ group :development, :test do
   gem 'annotate'  
 end
 
-gem 'pg', '~> 0.18'
-
-gem 'rails_12factor', group: :production
+group :production do  
+  gem 'rails_12factor'
+  gem 'pg', '~> 0.18'
+end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
