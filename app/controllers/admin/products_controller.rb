@@ -3,7 +3,7 @@ class Admin::ProductsController < ApplicationController
     before_action :require_admin
     before_action :find_product, except: [:index, :new, :create]
     layout "admin"
-    require 'pry'
+    # require 'pry'
     def index
         @products = Product.all.order_position.page(params[:page]).per(8)
     end
