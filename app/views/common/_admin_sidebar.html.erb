@@ -1,7 +1,7 @@
     <div class="sidebar" data-color="purple">
       <div class="sidebar-wrapper">
         <ul class="nav sidebar-nav">        
-          <li>                                                         
+          <li class="active">                                                         
             <%= link_to admin_orders_path,remote: true do %>                
                 <i class="material-icons">dashboard</i>
                 <p>訂單列表</p>
@@ -10,9 +10,8 @@
           <li>
             <%= link_to admin_products_path,remote: true do %>
                 <i class="material-icons">view_list</i>
-                <p>课程列表</p>
+                <p>商品列表</p>
             <% end %>
-
           </li>
           <% if false %>
             <li class="<%= render_active "categories" %>">

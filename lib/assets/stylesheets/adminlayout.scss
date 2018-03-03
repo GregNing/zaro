@@ -1,3 +1,37 @@
 body{
     background-color: #fff
 }
+.sidebar-wrapper .sidebar-nav{
+    li a{        
+        color: #55606f;
+        text-align: center;     
+        i,p{
+            display: inline-block;
+        }
+        p{
+            margin: auto;
+            vertical-align: middle;
+            padding-left: 8px;
+        }
+    }
+    li:not(:first-child) a{
+        margin: 15px 0;
+    }
+    li a:hover{
+        background-color: #d3d3d3;
+        border-radius: 5px;   
+        color: #fdfdfd;
+    }
+    li.active a{
+        box-shadow: 0 12px 20px -10px #000, 0 4px 20px 0 #ddd, 0 7px 8px -5px #ddd;
+        background-color: #5e5e5e;
+        border-radius: 5px;   
+        color: #fdfdfd; 
+    }
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu{
+    opacity: 1;
+    visibility: visible;
+    margin-top: 1px;
+}
