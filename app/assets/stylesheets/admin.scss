@@ -13,6 +13,7 @@
  *= require_tree .
  *= require font-awesome
  *= require material_icons
+ *= require adminlayout
  *= require_self
  */
 
@@ -21,7 +22,3 @@
 @import "material-kit";
 @import "common";
 @import "font-awesome";
-
-body{
-    background-color: #fff
-}

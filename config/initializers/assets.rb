@@ -12,3 +12,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
+#这会告诉 Rails 编译 assets 时要多编译这两个进入点档案。
+#告訴 Rails編譯 assets 時多編譯這兩個檔案
+Rails.application.config.assets.precompile += %w( admin.css admin.js adminlayout.js adminlayout.scss)

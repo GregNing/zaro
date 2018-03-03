@@ -4,25 +4,26 @@
     <title>Zaro</title>
     <%= csrf_meta_tags %>
   
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag    'admin', media: 'all' %>
+    <%= javascript_include_tag 'admin' %>
   </head>
 
   <body>
-    <div class="container">
-        <%= render 'common/flashes' %>
-        <%= render "common/navbar" %>
+      <div class="container-fluid">
         <div class="row">
-        <div class="col-md-2">
-            <ul class="nav nav-pills nav-stacked" style="max-width: 300px;">
-            <li> <%= link_to("Products", admin_products_path) %> </li>
-            <li> <%= link_to("Orders", admin_orders_path) %> </li>
-            </ul>
+          <%= render "common/admin_navbar" %>
+          <div class="admin-layout">
+            <%= render "common/flashes" %>
+            <div class="col-md-2">
+              <%= render 'common/admin_sidebar' %>
+            </div>
+            <div class="col-md-10 admin-content" id="admin-layout-content">
+              <%= yield %>
+            </div>
+          </div>
         </div>
-        <div class="col-md-10">
-            <%= yield %>
-        </div>
-        </div>
+      </div>
     </div>
   </body>
 </html>
+<%= javascript_include_tag 'adminlayout' %>
