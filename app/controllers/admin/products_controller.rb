@@ -9,7 +9,7 @@ class Admin::ProductsController < Admin::AdminsController
     end
     def new
         @product = Product.new
-        @product.sizes.build
+        # @product.sizes.build
     end
     def create
         @product = Product.new(product_params)
@@ -38,18 +38,21 @@ class Admin::ProductsController < Admin::AdminsController
 
     def move_higher        
         @product.move_higher
-        
-        redirect_back fallback_location: root_path, notice: "#{@product.name}向上移動成功!"
+        @products = Product.all.order_position.page(params[:page]).per(8)
+        render "index"
     end
     def move_lower        
         @product.move_lower
-        redirect_back fallback_location: root_path, notice: "#{@product.name}向下移動成功!"
+        @products = Product.all.order_position.page(params[:page]).per(8)
+        render "index"
     end
     
     private
     def product_params
+        # params.require(:product).permit(:name, :description, :price, :image,:category_id,
+        #                                 sizes_attributes: [:s,:m,:l] )
         params.require(:product).permit(:name, :description, :price, :image,:category_id,
-                                        sizes_attributes: [:s,:m,:l] )        
+                                        :s,:m,:l)        
     end
     def find_product
         @product = Product.find(params[:id])

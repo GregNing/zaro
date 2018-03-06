@@ -10,5 +10,6 @@
 
 class Category < ApplicationRecord
     has_many :products
+    belongs_to :user
     validates :name,presence: {message: "請輸入種類名稱!"}
 end

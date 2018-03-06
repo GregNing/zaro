@@ -10,11 +10,9 @@
         </div>
         <!-- size 庫存量 -->
         <div class="size-quantity">
-        <%= f.simple_fields_for :sizes do |s| %>
-            <%= s.input :s, label: "S 號庫存" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
-            <%= s.input :m, label: "M 號庫存" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
-            <%= s.input :l, label: "L 號庫存" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
-        <% end %>      
+            <%= f.input :s, label: "S 號庫存" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+            <%= f.input :m, label: "M 號庫存" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+            <%= f.input :l, label: "L 號庫存" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
         </div>
     </div>
     <div class="form-actions">

@@ -3,8 +3,8 @@
         <div class="page-header">
             <h3>
             商品列表
-            <%= link_to new_admin_product_path, class: "btn btn-raised btn-success pull-right" do %>
-            <i class="fa fa-plus"></i> 新增
+            <%= link_to new_admin_product_path, class: "btn-add pull-right",  rel: "tooltip", title: "新增商品" do %>            
+            <i class="material-icons">add</i>
             <% end %>
             </h3>
         </div>
@@ -31,7 +31,7 @@
                 <td class="admin-products-imgpath">
                 <%= link_to product_path(product) do %>
                 <% if product.image.present? %>
-                    <%= image_tag(product.image.thumb.url, class: "thumbnail") %>
+                    <%= image_tag(product.image.url, class: "thumbnail") %>
                 <% else %>
                     <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
                 <% end %>
@@ -48,42 +48,50 @@
                 </td>
                 <td>
                     <ul class="size">
-                        <li class="<%= render_nosize_line(product.sizes.first.s) %>">
-                                <span>S: <%= product.sizes.first.s %></span>件                                
+                        <li class="<%= render_nosize_line(product.s) %>">
+                            <span>S:</span>
+                            <p>  <%= product.s %> 件 </p>
                         </li>
-                        <li class="<%= render_nosize_line(product.sizes.first.m) %>">
-                                <span>M: <%= product.sizes.first.m %></span>件
+                        <li class="<%= render_nosize_line(product.m) %>">
+                            <span>M:</span>
+                            <p>  <%= product.m %> 件 </p>
                         </li>
-                        <li class="<%= render_nosize_line(product.sizes.first.l) %>">
-                            <span>L: <%= product.sizes.first.l %></span>件
+                        <li class="<%= render_nosize_line(product.l) %>">
+                            <span>L:</span>                                                                
+                            <p>  <%= product.l %> 件 </p>  
                         </li>
                     </ul>
                 </td>
                 <td class="admin-index-function">                
                     <div class="action-function">
-                    <div class="action-function-btn ">
-                <%= link_to  edit_admin_product_path(product), class:"btn-edit" do %>
-                    <i class="large material-icons">mode_edit</i>
-                <% end %>
-                    <ul class="function-item">
-                    <li>
+                        <div class="action-function-btn ">
                         <%= link_to  edit_admin_product_path(product), class:"btn-edit" do %>
                             <i class="large material-icons">mode_edit</i>
                         <% end %>
-                    </li>
-                    <li>
-                        <%= link_to move_higher_admin_product_path(product), method: :patch do %>
-                        <i class="material-icons">arrow_upward</i>
-                        <% end %>
-                    </li>
-                    <li>
-                        <%= link_to move_lower_admin_product_path(product), method: :patch do %>
-                        <i class="material-icons">arrow_downward</i>
-                        <% end %>
-                    </li>
-                    </ul>
+                        <ul class="function-item">
+                        <li>
+                            <%= link_to move_higher_admin_product_path(product),rel: "tooltip", data: {method: :patch, title: '往前排序' },remote: true do %>
+                            <i class="material-icons">arrow_upward</i>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to move_lower_admin_product_path(product),rel: "tooltip",data: {method: :patch ,title: "往下排序"},remote: true do %>
+                            <i class="material-icons">arrow_downward</i>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to  edit_admin_product_path(product),  class:"btn-edit",  rel: "tooltip",title: "編輯" do %>
+                                <i class="large material-icons">mode_edit</i>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to  admin_product_path(product) , data: {confirm: "確定要刪除嗎?",title: "刪除",method: :delete }, rel: "tooltip" do %>
+                                <i class="large material-icons">delete</i>
+                            <% end %>
+                        </li>
+                        </ul>
+                        </div>
                     </div>
-                </div>
                 </td>
       </tr>
     <% end %>
@@ -95,6 +103,9 @@
     <!-- container-fluid end-->
 </div>
 <!-- index end -->
+
+<% if false %>
+
 <div class="products-list-content--result">
     <ul class="items">
         <% products.each do |product| %>
@@ -109,14 +120,14 @@
                         <%= link_to product.name , edit_admin_product_path(product) %>
                     </div>
                     <ul class="size">
-                        <li class="<%= render_nosize_line(product.sizes.first.s) %>">
-                                <span>S: <%= product.sizes.first.s %></span>件                                
+                        <li class="<%= render_nosize_line(product.s) %>">
+                                <span>S: <%= product.s %></span>件                                
                         </li>
-                        <li class="<%= render_nosize_line(product.sizes.first.m) %>">
-                                <span>M: <%= product.sizes.first.m %></span>件
+                        <li class="<%= render_nosize_line(product.m) %>">
+                                <span>M: <%= product.m %></span>件
                         </li>
-                        <li class="<%= render_nosize_line(product.sizes.first.l) %>">
-                            <span>L: <%= product.sizes.first.l %></span>件
+                        <li class="<%= render_nosize_line(product.l) %>">
+                            <span>L: <%= product.l %></span>件
                         </li>
                     </ul>
                     <p>
@@ -127,3 +138,4 @@
         <% end %>  
     </ul>
 </div>
+<% end %>
