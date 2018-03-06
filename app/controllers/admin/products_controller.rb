@@ -1,9 +1,6 @@
-class Admin::ProductsController < ApplicationController
-    before_action :authenticate_user!
-    before_action :require_admin
+class Admin::ProductsController < Admin::AdminsController
     before_action :find_product, except: [:index, :new, :create]
-    layout "admin"
-    # require 'pry'
+
     def index
         @products = Product.all.order_position.page(params[:page]).per(8)
     end
@@ -12,6 +9,7 @@ class Admin::ProductsController < ApplicationController
     end
     def new
         @product = Product.new
+        @product.sizes.build
     end
     def create
         @product = Product.new(product_params)
@@ -50,7 +48,8 @@ class Admin::ProductsController < ApplicationController
     
     private
     def product_params
-        params.require(:product).permit(:name, :description, :price, :quantity, :image)        
+        params.require(:product).permit(:name, :description, :price, :image,:category_id,
+                                        sizes_attributes: [:s,:m,:l] )        
     end
     def find_product
         @product = Product.find(params[:id])

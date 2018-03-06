@@ -1,44 +1,129 @@
-<h2> Product List </h2>
-<div class="pull-right" style="padding-bottom: 20px;">
-  <%= link_to("新增产品", new_admin_product_path, class: "btn btn-primary btn-sm") %>
-</div>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th width="220">Product Pic</th>
-      <th>Name</th>
-      <th>Price</th>
-      <th width="100"> Options</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% products.each do |product| %>
-      <tr>
-        <td>
-          <%= product.id %>
-        </td>
-        <td>
-          <%= link_to product_path(product) do %>
-            <% if product.image.present? %>
-              <%= image_tag(product.image.thumb.url, class: "thumbnail") %>
-            <% else %>
-              <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+<div class="admin-products">
+    <div class="container-fluid panel panel-default">
+        <div class="page-header">
+            <h3>
+            商品列表
+            <%= link_to new_admin_product_path, class: "btn btn-raised btn-success pull-right" do %>
+            <i class="fa fa-plus"></i> 新增
             <% end %>
-          <% end %>
-        </td>
-        <td>
-          <%= product.name %>
-        </td>
-        <td>
-          <%= product.price %>
-        </td>
-        <td>
-          <%= link_to("Edit", edit_admin_product_path(product)) %>
-          <%= link_to "向上", move_higher_admin_product_path(product), method: :patch %>
-          <%= link_to "向下", move_lower_admin_product_path(product), method: :patch %>
-        </td>
+            </h3>
+        </div>
+        <div class="panel panel-default">        
+            <table class="table table-products">
+                <thead>
+                <tr>
+                    <th>商品種類</th>
+                    <th>商品圖片</th>
+                    <th>商品名稱/內容</th>
+                    <th>商品售價</th>
+                    <th>商品型號/庫存量</th>
+                    <th>功能
+                    <i class="material-icons right">pan_tool</i> 
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <% products.each do |product| %>
+                <tr>
+                <td class="admin-category-name">
+                <%= product.category.name %>
+                </td>
+                <td class="admin-products-imgpath">
+                <%= link_to product_path(product) do %>
+                <% if product.image.present? %>
+                    <%= image_tag(product.image.thumb.url, class: "thumbnail") %>
+                <% else %>
+                    <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+                <% end %>
+                <% end %>
+                </td>
+                <td class="admin-product-name">
+                    <%= product.name %><br/>
+                    <small>
+                        <%= description_format(product) %>
+                    </small>
+                </td>
+                <td class="admin-products-price">
+                    <%= product.price %>
+                </td>
+                <td>
+                    <ul class="size">
+                        <li class="<%= render_nosize_line(product.sizes.first.s) %>">
+                                <span>S: <%= product.sizes.first.s %></span>件                                
+                        </li>
+                        <li class="<%= render_nosize_line(product.sizes.first.m) %>">
+                                <span>M: <%= product.sizes.first.m %></span>件
+                        </li>
+                        <li class="<%= render_nosize_line(product.sizes.first.l) %>">
+                            <span>L: <%= product.sizes.first.l %></span>件
+                        </li>
+                    </ul>
+                </td>
+                <td class="admin-index-function">                
+                    <div class="action-function">
+                    <div class="action-function-btn ">
+                <%= link_to  edit_admin_product_path(product), class:"btn-edit" do %>
+                    <i class="large material-icons">mode_edit</i>
+                <% end %>
+                    <ul class="function-item">
+                    <li>
+                        <%= link_to  edit_admin_product_path(product), class:"btn-edit" do %>
+                            <i class="large material-icons">mode_edit</i>
+                        <% end %>
+                    </li>
+                    <li>
+                        <%= link_to move_higher_admin_product_path(product), method: :patch do %>
+                        <i class="material-icons">arrow_upward</i>
+                        <% end %>
+                    </li>
+                    <li>
+                        <%= link_to move_lower_admin_product_path(product), method: :patch do %>
+                        <i class="material-icons">arrow_downward</i>
+                        <% end %>
+                    </li>
+                    </ul>
+                    </div>
+                </div>
+                </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+        </div>
+        <!-- panelbody end -->
+    </div>
+    <!-- container-fluid end-->
+</div>
+<!-- index end -->
+<div class="products-list-content--result">
+    <ul class="items">
+        <% products.each do |product| %>
+            <li>
+                <!-- 商品連接到修改 -->
+                <%= link_to edit_admin_product_path(product) , class: "items__image" do %>
+                    <%= image_tag product.image.url ,title: product.name , alt: product.name %>
+                <% end %>
+                <!-- 商品資訊 -->
+                <div class="item_info">
+                    <div class="productname">
+                        <%= link_to product.name , edit_admin_product_path(product) %>
+                    </div>
+                    <ul class="size">
+                        <li class="<%= render_nosize_line(product.sizes.first.s) %>">
+                                <span>S: <%= product.sizes.first.s %></span>件                                
+                        </li>
+                        <li class="<%= render_nosize_line(product.sizes.first.m) %>">
+                                <span>M: <%= product.sizes.first.m %></span>件
+                        </li>
+                        <li class="<%= render_nosize_line(product.sizes.first.l) %>">
+                            <span>L: <%= product.sizes.first.l %></span>件
+                        </li>
+                    </ul>
+                    <p>
+                        <span>TWD.<%= product.price %> </span>
+                    </p>
+                </div>
+            </li>        
+        <% end %>  
+    </ul>
+</div>

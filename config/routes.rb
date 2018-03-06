@@ -17,7 +17,8 @@ Rails.application.routes.draw do
       patch :move_higher
       patch :move_lower
       end
-    end    
+    end
+    resources :categories
   end
   resources :products do
     member do
