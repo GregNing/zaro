@@ -14,7 +14,7 @@
             <% end %>
           </li>
          <li class="<%= render_active 'categories' %>">
-            <%= link_to(admin_categories_path) do %>
+            <%= link_to admin_categories_path ,remote: true do %>
               <i class="material-icons">view_module</i>
               <p>商品分類</p>
             <% end %>
@@ -30,3 +30,4 @@
         </ul>
       </div>
     </div>
+<%= javascript_include_tag 'adminlayout' %>

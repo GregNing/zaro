@@ -2,14 +2,13 @@ class Admin::ProductsController < Admin::AdminsController
     before_action :find_product, except: [:index, :new, :create]
 
     def index
-        @products = Product.all.order_position.page(params[:page]).per(8)
+        @products = Product.all.order_position.page(params[:page]).per(5)
     end
     def show
         
     end
     def new
-        @product = Product.new
-        # @product.sizes.build
+        @product = Product.new        
     end
     def create
         @product = Product.new(product_params)
@@ -38,12 +37,12 @@ class Admin::ProductsController < Admin::AdminsController
 
     def move_higher        
         @product.move_higher
-        @products = Product.all.order_position.page(params[:page]).per(8)
+        @products = Product.all.order_position.page(params[:page]).per(5)
         render "index"
     end
     def move_lower        
         @product.move_lower
-        @products = Product.all.order_position.page(params[:page]).per(8)
+        @products = Product.all.order_position.page(params[:page]).per(5)
         render "index"
     end
     

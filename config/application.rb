@@ -22,8 +22,6 @@ module Zaro
     # config.eager_load_paths << "#{Rails.root}/lib/modules #{Rails.root}/lib/assets/javascripts"
     config.eager_load_paths += %W(
       #{Rails.root}/lib/modules
-      #{Rails.root}/assets/javascripts
-      #{Rails.root}/assets/stylesheets
     )
     # config.eager_load_paths += %W(#{config.root}/lib/modules)
     # config.autoload_paths += %W(#{config.root}/lib/modules)
