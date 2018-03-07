@@ -2,7 +2,8 @@ class Admin::ProductsController < Admin::AdminsController
     before_action :find_product, except: [:index, :new, :create]
 
     def index
-        @products = Product.all.order_position.page(params[:page]).per(5)
+        #使用 includes 解決的 N+1 問題        
+        @products = Product.includes(:category).order_position.page(params[:page]).per(5)      
     end
     def show
         
@@ -37,12 +38,12 @@ class Admin::ProductsController < Admin::AdminsController
 
     def move_higher        
         @product.move_higher
-        @products = Product.all.order_position.page(params[:page]).per(5)
+        @products = Product.includes(:category).order_position.page(params[:page]).per(5)
         render "index"
     end
     def move_lower        
         @product.move_lower
-        @products = Product.all.order_position.page(params[:page]).per(5)
+        @products = Product.includes(:category).order_position.page(params[:page]).per(5)
         render "index"
     end
     

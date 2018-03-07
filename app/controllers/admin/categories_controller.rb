@@ -1,7 +1,7 @@
 class Admin::CategoriesController < Admin::AdminsController
     before_action :find_category_id, only: [:edit, :update]
-    def index
-        @categories = Category.all.page(params[:page]).per(8)
+    def index    
+        @categories = Category.page(params[:page]).per(8)        
     end
     def new
         @category = Category.new
@@ -17,8 +17,8 @@ class Admin::CategoriesController < Admin::AdminsController
     end
     def edit        
     end
-    def update
-        if @category.update(categories_params)
+    def update        
+        if @category.update_attributes(categories_params)
              redirect_to admin_categories_path,notice: "修改#{@category.name}成功"
         else
             render :edit

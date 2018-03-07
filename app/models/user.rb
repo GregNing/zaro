@@ -26,6 +26,7 @@ class User < ApplicationRecord
   has_many :products
   has_many :orders
   has_many :categories
+  # validates :nickname,presence: {message: "請輸入姓名!"}
   def admin?
     self.is_admin
   end

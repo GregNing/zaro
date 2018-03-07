@@ -19,14 +19,12 @@
               <p>商品分類</p>
             <% end %>
           </li>          
-          <% if false %>
           <li class="<%= render_active "users" %>">
-            <%= link_to(admin_users_path) do %>
-              <i class="material-icons">person</i>
+            <%= link_to admin_users_path ,remote: true do %>
+              <i class="material-icons">people</i>
               <p>用户列表</p>
             <% end %>
-          </li>
-          <% end %>          
+          </li>       
         </ul>
       </div>
     </div>
