@@ -1,0 +1,17 @@
+<div class="panel-body">
+<%= simple_form_for [:admin, @user] do |f| %>
+    <div class="form-group">
+        <%= f.input :email, label: "帳號" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+        <%= f.input :nickname, label: "姓名",required: false ,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>        
+        <%= f.input :password, required: false, label: "密碼" %> 
+    </div>
+    <div class="form-actions">
+    <%= button_tag name: "send",type: 'submit',class: "btn submit-button",data: { disable_with: "送出中..." } do %>
+        送出 <i class="material-icons right">send</i>
+    <% end %>
+    <%= link_to admin_users_path, class: "waves-effect waves-light btn" do %> 
+           取消<i class="material-icons right">cancel</i>
+    <% end %>
+    </div>
+<% end %>
+</div>

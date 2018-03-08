@@ -189,6 +189,13 @@ nav{
                     font-weight: 400;
                     font-family: monospace;
                     padding-left: 10px;
+                    i.material-icons{
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    p{
+                         display: inline-block;
+                    }
                 }
                 &.admin-products-imgpath{
                     width: 160px;
