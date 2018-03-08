@@ -28,12 +28,12 @@
                 <td class="admin-category-name">
                 <%= product.category.name %>
                 </td>
-                <td class="admin-products-imgpath">
+                <td class="admin-products-imgpath">                 
                 <%= link_to product_path(product) do %>
                 <% if product.image.present? %>
-                    <%= image_tag(product.image.url, class: "thumbnail") %>
+                    <%= image_tag(product.image.url) %>
                 <% else %>
-                    <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+                    <%= image_tag("http://placehold.it/200x200&text=No Pic") %>
                 <% end %>
                 <% end %>
                 </td>

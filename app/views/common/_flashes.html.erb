@@ -1,6 +1,6 @@
 <% if flash.any? %>
     <% metion_flashes.each do |key,value| %>
-        <div class="alert alert-<%= flash_class(key) %>">
+        <div class="alert alert-fixed alert-<%= flash_class(key) %>" id="alert-flash">
             <div class="container">
                 <div class="alert-icon">
                     <i class="material-icons">

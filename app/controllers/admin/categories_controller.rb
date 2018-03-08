@@ -17,10 +17,12 @@ class Admin::CategoriesController < Admin::AdminsController
     end
     def edit        
     end
-    def update        
+    def update                
         if @category.update_attributes(categories_params)
              redirect_to admin_categories_path,notice: "修改#{@category.name}成功"
-        else
+        else            
+            #記錄錯誤訊息
+            # @category.errors.messages.inspect
             render :edit
         end
     end

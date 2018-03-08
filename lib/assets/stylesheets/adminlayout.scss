@@ -47,6 +47,19 @@ body{
 }
 nav{
     border-radius: 0 4px 4px 0;
+    .navbar-header{
+        padding-left: 3%;
+        a.navbar-brand {
+            span{
+            font-weight: bold;
+            font-size: 30px;
+            font-family: cursive;
+            }
+            small{
+                padding-left: 8px;
+            }
+        }
+    }
     .navbar-nav.nav.navbar-right .dropdown{
         .dropdown-menu{
             margin-right: 15px;            
