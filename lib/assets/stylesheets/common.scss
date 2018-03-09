@@ -1,3 +1,7 @@
+body{
+    background-color: #fff
+}
+
 .alert-fixed{
     position: fixed;
     left: 0;
@@ -15,4 +19,77 @@
     &.alert-hide{
         padding: 0;        
     }
+}
+
+/* zaro-logo */
+.navbar-header a.zaro-logo {
+	color: #5e5e5e;
+	font-weight: 400;
+	text-transform: uppercase;
+	font-size: 10em;
+	overflow: hidden;
+    padding: 0px 0px 0px 10px;
+    font-size: 3.5em;
+    font-family: -webkit-pictograph;
+    letter-spacing: 3.4px;
+    line-height: 1;
+}
+
+.zaro-logo::before {
+	content: '';
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	border-width: 2px 0;
+	border-color: #282828;
+	border-style: solid;
+	left: 0;
+	-webkit-transform: translate3d(-101%,0,0);
+	transform: translate3d(-101%,0,0);
+	-webkit-transition: -webkit-transform 0.5s;
+	transition: transform 0.5s;
+}
+
+.zaro-logo:hover::before {
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+
+.zaro-logo span {
+	display: inline-block;
+	position: relative;
+	-webkit-transform: perspective(1000px) rotate3d(0,1,0,0deg);
+	transform: perspective(1000px) rotate3d(0,1,0,0deg);
+	-webkit-transition: -webkit-transform 0.5s, color 0.5s;
+	transition: transform 0.5s, color 0.5s;
+}
+
+.zaro-logo:hover span {
+	color: #1e1a1b;
+	-webkit-transform: perspective(1000px) rotate3d(0,1,0,360deg);
+	transform: perspective(1000px) rotate3d(0,1,0,360deg);
+}
+
+.zaro-logo span:nth-child(4),
+.zaro-logo:hover span:first-child {
+	-webkit-transition-delay: 0s;
+	transition-delay: 0s;
+}
+
+.zaro-logo span:nth-child(3),
+.zaro-logo:hover span:nth-child(2) {
+	-webkit-transition-delay: 0.1s;
+	transition-delay: 0.1s;
+}
+
+.zaro-logo span:nth-child(2),
+.zaro-logo:hover span:nth-child(3) {
+	-webkit-transition-delay: 0.2s;
+	transition-delay: 0.2s;
+}
+
+.zaro-logo span:first-child,
+.zaro-logo:hover span:nth-child(4) {
+	-webkit-transition-delay: 0.3s;
+	transition-delay: 0.3s;
 }

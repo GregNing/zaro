@@ -45,6 +45,7 @@ body{
         }
     }
 }
+
 nav{
     border-radius: 0 4px 4px 0;
     .navbar-header{
@@ -61,6 +62,7 @@ nav{
         }
     }
     .navbar-nav.nav.navbar-right .dropdown{
+        margin-right: 20px;
         .dropdown-menu{
             margin-right: 15px;            
         }
@@ -93,76 +95,7 @@ nav{
     }
 }
 .admin-content{
-    margin: 8% 0 3% 0;
-    //左側選單
-    .products-list-content--result{
-        width: 1330px;
-        max-width: 100%;
-        .items{
-            margin: 0 -10px;
-            font-size: 0;
-            letter-spacing: 0;
-            overflow: hidden;
-            padding: 0;
-            & > li{
-                margin-top: 0;
-                box-sizing: border-box;
-                font-size: 14px;
-                letter-spacing: .05em;
-                text-align: left;
-                display: inline-block;
-                width: 25%;
-                padding: 0 10px;    
-                vertical-align: top;
-            }
-            & > li:nth-child(n + 5){
-                margin-top: 50px;
-            }
-            .items__image{
-                display: block;
-                position: relative;
-                text-decoration: none;
-                img{
-                display: block;
-                width: 100%;
-                opacity: 1;
-                transition: opacity .6s ease;
-                box-shadow: #000 0 0 0;
-                border-radius: 4px;
-                }
-            }
-            .item_info{
-                line-height: 20px;
-                margin: 10px 3px;
-                color: #6c6c6c;
-                .productname a{
-                    color: #6c6c6c;
-                    font-weight: 700;
-                    text-decoration: none;
-                }
-                .size{
-                    margin-top: 7px;
-                    padding: 0;
-                    border: 0;
-                    font: inherit;
-                    vertical-align: baseline;
-                    list-style: none;
-                    li{
-                        display: inline-block;
-                        margin: 0 12px 7px 0;
-                    }
-                }
-                p{
-                    letter-spacing: 0;
-                    span{
-                        letter-spacing: 0;    
-                        margin-right: 1em;
-                    }
-                }
-            }
-        }
-    }
-    //左側選單 end
+    margin: 8% 0 3% 0;    
     //商品列表 start
     .admin-products{
         // background: #FFFFFF;

@@ -12,7 +12,7 @@
 #
 
 class Size < ApplicationRecord
-    belongs_to :product        
+    #belongs_to :product        
     validates :s, numericality: { message: "請輸入數字!"  }
     validates :m, numericality: { message: "請輸入數字!"  }
     validates :l, numericality: { message: "請輸入數字!"  }
