@@ -1,7 +1,18 @@
 //商品 index
 .product-body{
-    margin-top: 6%;
+    margin-top: 10%;
     .products-header{
+        .link_to_products_info{
+            display: block;
+            position: fixed;
+            z-index: 99;
+            ul{
+                list-style: none;
+                li{
+                    display: inline-block;
+                }
+            }
+        }
         .link_to_pic_products{
             max-width: 1920px;
             width: 100%;
@@ -9,6 +20,44 @@
             overflow: hidden;
             height: 400px;
             border-radius: 5px;
+            .link_to_pic_slide{
+                list-style: none;
+                position: relative;
+                display: block;
+                left: 0;
+                right: 0;
+                text-align: center;
+                top: 93%;
+                li{
+                    display: inline-block;
+                    position: relative;
+                    margin: 0 8px;                    
+                    button{
+                        padding: 7px;
+                        border: 0;
+                        outline: 0;
+                        text-indent: -9999px;
+                        cursor: pointer;
+                        height: 10px;
+                        width: 10px;
+                        border-radius: 50%;
+                        background: #afafaf;
+                        transition: all 0.4s ease-in-out;
+                        &.show{
+                            background-color: #4a4a4a;
+                        }
+                        &:hover{
+                            background-color: #777777;
+                            border-radius: unset;
+                            transform: rotate(45deg);
+                            -moz-transform:rotate(45deg);
+                            -webkit-transform:rotate(45deg);
+                            -o-transform:rotate(45deg);
+                            -ms-transform:rotate(45deg);
+                        }
+                    }
+                }
+            }
             //商品連結
             a{
                 img{
