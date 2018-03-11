@@ -1,6 +1,17 @@
 <% provide :zaro_title, "ZARO" %>
-<div class="product-body">
-    <div class="products-header row">        
+<div class="product-body col-md-12">
+    <div class="products-header row">
+        <div class="link_to_pic_products" id="slide">    
+            <%= link_to "#" do %>
+                <%= image_tag "category/clothes/clothes-3.jpg" %>
+            <% end %>
+            <%= link_to "#" do %>
+                <%= image_tag "category/clothes/clothes-2.jpg" %>
+            <% end %>
+            <%= link_to "#" do %>
+                <%= image_tag "category/clothes/clothes-1.jpg" %>
+            <% end %>
+        </div>
     </div>
     <div class="products-list-content--result">
         <ul class="items">
@@ -35,3 +46,4 @@
         </ul>
     </div>
 </div>
+<%= javascript_include_tag 'productindex' %>

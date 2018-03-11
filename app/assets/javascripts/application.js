@@ -16,3 +16,5 @@
 //= require material-kit
 //= require material.min
 //= require nouislider.min
+//= require common
+//= require turbolinks
