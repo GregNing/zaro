@@ -303,6 +303,9 @@
                         top: 2px;
                     }
                 }
+                &.disabled{
+                    cursor: not-allowed;
+                }
             }
             input[type=text]{
                 color: #343434;
@@ -315,6 +318,90 @@
             }            
         }
         //庫存end
+        //加入購物車或直接購買
+        .product_buyandaddtocart{
+            margin-top: 20px;
+            display: block;
+            .addtocart{
+                display: inline-block;
+                width: 150px;
+                button{
+                    box-sizing: border-box;
+                    line-height: 35px;
+                    padding: 0;                    
+                    text-align: center;
+                    cursor: pointer;
+                    transition: background-color .3s ease,border-color .3s ease,color .3s ease;
+                    background-color: #fff;
+                    color: #242424;
+                    border: 1px solid #bcbcbc;
+                    width: 100%;
+                    border-radius: 5px;
+                    letter-spacing: 1.4px;
+                    vertical-align: middle;
+                    margin: auto;
+                    font-size: 14px;
+                    i{
+                        font-size: 16px;
+                        color: #1f1f1f;                        
+                    }
+                }
+                &:hover{
+                    button{
+                        background-color: #838383;
+                        color: #fff;
+                        border-color: #838383;
+                        i{
+                            color: #fff;
+                        }
+                    }
+                }
+                &.active{
+                    button{
+                        background-color: #111;
+                        color: #fff;
+                        border-color: #111;
+                        i{
+                            color: #fff;
+                        }
+                    }                    
+                }
+            }
+            //購物車 end
+            //直接購買 
+            .buyproduct{
+                display: inline-block;
+                width: 150px;
+                a{
+                    box-sizing: border-box;
+                    padding: 7px 35px;
+                    text-align: center;
+                    cursor: pointer;
+                    transition: background-color .3s ease,border-color .3s ease,color .3s ease;
+                    background-color: #fff;
+                    color: #242424;
+                    border: 1px solid #bcbcbc;
+                    width: 100%;
+                    border-radius: 5px;
+                    letter-spacing: 1.4px;
+                    vertical-align: middle;
+                    margin: auto;
+                    font-size: 18px;
+                    text-decoration: none;
+                    &:hover{
+                        color: #fff;
+                        border-color: #838383;
+                        background-color: #838383;
+                    }
+                    &.active{
+                        color: #fff;
+                        border-color: #111;
+                        background-color: #111;
+                    }
+                }
+            }
+            //直接購買 end
+        }
     }
 }
 //商品show 畫面 end

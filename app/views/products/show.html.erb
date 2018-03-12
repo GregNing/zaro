@@ -44,6 +44,8 @@
             </ul>
         </div>
         <!-- 商品顏色尺寸 end -->
+        <!-- 商品操作表單，加入購物車以及下單的數據 -->
+        <%= simple_form_for @product, method: :post, remote: true, url: product_path(@product) do |f| %>        
         <!-- 尺寸 size -->
         <div class="product-size">
           <div id="wrapper_select_text" class="wrapper_select_text">
@@ -55,20 +57,40 @@
 						</ul>
           </div>
         </div>
-        <!-- 尺寸 size end-->
+        <!-- 尺寸 size end-->        
+        <!-- 商品庫存 -->
         <div class="product-quantity">
             <%= link_to "#" ,id: "quantity-minus",class: "quantity-minus" do %>
-            <i class="material-icons">remove</i>
-            <% end %>            
-            <input type="text" name="quantity" value="1" id="quantity-input" class="quantity-input">            
-            <%= link_to "#", id: "quantity-plus", class: "quantity-plus" do %>
+              <i class="material-icons">remove</i>
+            <% end %>
+            <%= f.input_field "", name: "quantity", value: 1, max: @product.s, id: "quantity-input", class: "quantity-input" %>
+              <%= link_to "#", id: "quantity-plus", class: "quantity-plus" do %>
             <i class="material-icons">add</i>
             <% end %>
         </div>
+        <!-- 商品庫存 end-->
+        <!-- 加入購物車 -->
+        <div class="product_buyandaddtocart">
+          <div class="addtocart">
+            <%= button_tag type:'submit' do %>
+            <i class="fa fa-cart-arrow-down"></i>
+              ADD TO CART
+            <% end %>
+          </div>
+          <div class="buyproduct">
+            <%= link_to "#" do %>
+              立刻購買
+            <% end %>
+          </div>          
+        <!-- 加入購物車 end -->
+        </div>
+        <% end %>
       </div>
   </div>
 </div>
 <!-- 商品介紹 end -->
+
+
     <% if false %>     
 <div class="row">
   <div class="col-md-6">
