@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180302160233) do
+ActiveRecord::Schema.define(version: 20180307093114) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer "cart_id"
@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20180302160233) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -60,6 +67,19 @@ ActiveRecord::Schema.define(version: 20180302160233) do
     t.integer "user_id"
     t.string "image"
     t.integer "position"
+    t.integer "category_id"
+    t.integer "s", default: 0
+    t.integer "m", default: 0
+    t.integer "l", default: 0
+  end
+
+  create_table "sizes", force: :cascade do |t|
+    t.integer "product_id"
+    t.integer "s", default: 0
+    t.integer "m", default: 0
+    t.integer "l", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,6 +96,7 @@ ActiveRecord::Schema.define(version: 20180302160233) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nickname"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

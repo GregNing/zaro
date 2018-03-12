@@ -1,0 +1,65 @@
+<div class="admin-products">
+    <div class="container-fluid panel panel-default">
+        <div class="page-header">
+            <h3>
+            人員管理
+            <%= link_to new_admin_user_path, class: "btn-add pull-right",  rel: "tooltip", title: "新增用戶" do %>            
+            <i class="material-icons">add</i>
+            <% end %>
+            </h3>
+        </div>
+        <div class="panel panel-default">        
+            <table class="table table-products">
+                <thead>
+                <tr>
+                    <th>帳號</th>
+                    <th>名稱</th>
+                    <th class="th-funciton">功能
+                    <i class="material-icons right">pan_tool</i> 
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <% users.each do |user| %>
+                <tr>
+                <td class="admin-category-name">
+                <i class="material-icons">person  </i>
+                <p><%= user.email %></p>
+                </td>             
+                <td class="admin-product-name">
+                    <%= user.nickname %><br/>
+                </td>            
+                <td class="admin-index-function">                
+                    <div class="action-function">
+                        <div class="action-function-btn ">
+                        <%= link_to  edit_admin_user_path(user), class:"btn-edit" do %>
+                            <i class="large material-icons">mode_edit</i>
+                        <% end %>
+                        <ul class="function-item">             
+                        <li>
+                            <%= link_to  edit_admin_user_path(user),  class:"btn-edit",  rel: "tooltip",title: "編輯" do %>
+                                <i class="large material-icons">mode_edit</i>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to  admin_user_path(user) , data: {confirm: "確定要刪除嗎?",title: "刪除",method: :delete }, rel: "tooltip" do %>
+                                <i class="large material-icons">delete</i>
+                            <% end %>
+                        </li>
+                        </ul>
+                        </div>
+                    </div>
+                </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+        </div>
+        <!-- panelbody end -->
+        <div class="paginate-body">
+        <%= paginate users %>
+        </div>
+    </div>
+    <!-- container-fluid end-->
+</div>
+<!-- index end -->

@@ -1,0 +1,15 @@
+<div class="panel-body">
+<%= simple_form_for [:admin, @category] do |f| %>
+    <div class="form-group">
+        <%= f.input :name, label: "商品種類" ,required: false,label_html: { class: 'control-label' }, wrapper_html: { class: 'label-floating' }%>
+    </div>
+    <div class="form-actions">
+    <%= button_tag name: "send",type: 'submit',class: "btn submit-button",data: { disable_with: "送出中..." } do %>
+        送出 <i class="material-icons right">send</i>
+    <% end %>
+    <%= link_to admin_categories_path, class: "waves-effect waves-light btn" do %> 
+           取消<i class="material-icons right">cancel</i>
+    <% end %>
+    </div>
+<% end %>
+</div>

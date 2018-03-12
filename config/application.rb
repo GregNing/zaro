@@ -19,7 +19,10 @@ module Zaro
     #另新增 modul 在 lib/目錄下面
     # Autoload lib/ folder including all subdirectories
     # config.autoload_paths += Dir["#{config.root}/lib/**"] 
-    config.eager_load_paths << "#{Rails.root}/lib/modules"
+    # config.eager_load_paths << "#{Rails.root}/lib/modules #{Rails.root}/lib/assets/javascripts"
+    config.eager_load_paths += %W(
+      #{Rails.root}/lib/modules
+    )
     # config.eager_load_paths += %W(#{config.root}/lib/modules)
     # config.autoload_paths += %W(#{config.root}/lib/modules)
 

@@ -1,10 +1,8 @@
-class Admin::OrdersController < ApplicationController
-    before_action :authenticate_user!
-    before_action :require_admin
+class Admin::OrdersController < Admin::AdminsController
     before_action :find_order_id,except: [:index]
-    layout "admin"
-    def index
-        @orders = Order.order("id DESC")
+
+    def index        
+        @orders = Order.order("id DESC")        
     end
     def show
         @product_lists = @order.product_lists

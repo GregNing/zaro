@@ -1,6 +1,24 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
 en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "請輸入電子郵件地址 !"
+              taken: "請使用不同的電子郵件地址 !"
+              invalid: "請輸入正確的電子郵件地址 !"
+            password:
+              too_short: "請輸入至少 %{count} 位數密碼 !"
+              blank: "請輸入密碼 !"
+              confirmation: "密碼不正確 !"
+            password_confirmation:
+              blank: "請輸入確認密碼 !"
+              confirmation: "密碼確認不正確 !"
+            signed_in: "Custom signed in message"
+            signed_out: "Custom signed out message"
   devise:
     confirmations:
       confirmed: "Your email address has been successfully confirmed."

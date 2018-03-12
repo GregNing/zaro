@@ -1,0 +1,3 @@
+str = "<%=j render partial: "ordersindex", locals: {orders: @orders} %>";
+document.getElementById("admin-layout-content").innerHTML = str;
+window.history.pushState("", "", "/<%= params[:controller] %>");

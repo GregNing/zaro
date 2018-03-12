@@ -1,17 +1,15 @@
-class Admin::ProductsController < ApplicationController
-    before_action :authenticate_user!
-    before_action :require_admin
+class Admin::ProductsController < Admin::AdminsController
     before_action :find_product, except: [:index, :new, :create]
-    layout "admin"
-    # require 'pry'
+
     def index
-        @products = Product.all.order_position.page(params[:page]).per(8)
+        #使用 includes 解決的 N+1 問題        
+        @products = Product.includes(:category).order_position.page(params[:page]).per(5)      
     end
     def show
         
     end
     def new
-        @product = Product.new
+        @product = Product.new        
     end
     def create
         @product = Product.new(product_params)
@@ -40,17 +38,21 @@ class Admin::ProductsController < ApplicationController
 
     def move_higher        
         @product.move_higher
-        
-        redirect_back fallback_location: root_path, notice: "#{@product.name}向上移動成功!"
+        @products = Product.includes(:category).order_position.page(params[:page]).per(5)
+        render "index"
     end
     def move_lower        
         @product.move_lower
-        redirect_back fallback_location: root_path, notice: "#{@product.name}向下移動成功!"
+        @products = Product.includes(:category).order_position.page(params[:page]).per(5)
+        render "index"
     end
     
     private
     def product_params
-        params.require(:product).permit(:name, :description, :price, :quantity, :image)        
+        # params.require(:product).permit(:name, :description, :price, :image,:category_id,
+        #                                 sizes_attributes: [:s,:m,:l] )
+        params.require(:product).permit(:name, :description, :price, :image,:category_id,
+                                        :s,:m,:l)        
     end
     def find_product
         @product = Product.find(params[:id])

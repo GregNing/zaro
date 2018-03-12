@@ -12,10 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap/alert
-//= require bootstrap/dropdown
-//= require bootstrap-sprockets
+//= require bootstrap
 //= require material-kit
 //= require material.min
 //= require nouislider.min
-//= require_tree .
+//= require common
+//= require turbolinks

@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # devise_for :users
+  devise_for :user, controllers: {  
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
   namespace :account do
     resources :orders
   end
-  namespace :admin do    
+  namespace :admin do
+    resources :users
     resources :orders do
       member do
        post :cancel
@@ -17,7 +23,8 @@ Rails.application.routes.draw do
       patch :move_higher
       patch :move_lower
       end
-    end    
+    end
+    resources :categories
   end
   resources :products do
     member do

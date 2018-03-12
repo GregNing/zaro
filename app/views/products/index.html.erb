@@ -1,15 +1,148 @@
-
-<div class="row">
-  <% @products.each do |product| %>
-    <div class="col-xs-6 col-md-3">
-      <%= link_to product_path(product) do %>
-        <% if product.image.present? %>
-          <%= image_tag(product.image.thumb.url, class: "thumbnail") %>
-        <% else %>
-          <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
-        <% end %>
-      <% end %>
-      <%= product.name %> ￥ <%= product.price %>
+<% provide :zaro_title, "ZARO" %>
+<div class="product-body col-md-12">
+    <div class="products-header row">
+        <div class="link_to_products_info">
+            <ul>
+                <li class="nav__w4 NEWEST">
+                    <a href="/WOMEN/NEWARRIVAL/NEWEST">                        
+                        <span class="translate_tw">最新商品</span>
+                        <span class="translate_en">最新商品</span>
+                    </a>
+                </li>
+                <li class="nav__w4 HOTTEST">
+                    <a href="/WOMEN/NEWARRIVAL/HOTTEST">
+                        
+                        <span class="translate_tw">熱賣商品</span>
+                        <span class="translate_en">熱賣商品</span>
+                    </a>
+                </li>
+                <li class="active nav__w4 LIFE">
+                    <a href="/WOMEN/LIFE">                        
+                        <span class="translate_tw">抗寒專區</span>
+                        <span class="translate_en">LIFE</span>
+                    </a>
+                </li>
+                <li class="nav__w4 TRAVEL">
+                    <a href="/WOMEN/TRAVEL">
+                        
+                        <span class="translate_tw">旅遊企劃</span>
+                        <span class="translate_en">TRAVEL</span>
+                    </a>
+                </li>
+                <li class="nav__w2 TOP">
+                    <a href="/WOMEN/TOP">
+                        
+                        <span class="translate_tw">上身</span>
+                        <span class="translate_en">TOP</span>
+                    </a>
+                </li>
+                <li class="nav__w2 DRESS">
+                    <a href="/WOMEN/DRESS">
+                        
+                        <span class="translate_tw">洋裝</span>
+                        <span class="translate_en">DRESS</span>
+                    </a>
+                </li>
+                <li class="nav__w2 BOTTOM">
+                    <a href="/WOMEN/BOTTOM">
+                        
+                        <span class="translate_tw">下身</span>
+                        <span class="translate_en">BOTTOM</span>
+                    </a>
+                </li>
+                <li class="nav__w2 JUMPSUIT">
+                    <a href="/WOMEN/JUMPSUIT">
+                        
+                        <span class="translate_tw">套裝</span>
+                        <span class="translate_en">JUMPSUIT</span>
+                    </a>
+                </li>
+                <li class="nav__w4 OUTER">
+                    <a href="/WOMEN/OUTER">
+                        
+                        <span class="translate_tw">外套罩衫</span>
+                        <span class="translate_en">OUTER</span>
+                    </a>
+                </li>
+                <li class="nav__w2 ACC">
+                    <a href="/WOMEN/ACC">
+                        
+                        <span class="translate_tw">配件</span>
+                        <span class="translate_en">ACC</span>
+                    </a>
+                </li>
+                <li class="nav__w4 SALE">
+                    <a href="/WOMEN/ONSALE">
+                        
+                        <span class="translate_tw">優惠折扣</span>
+                        <span class="translate_en">SALE</span>
+                    </a>
+                </li>
+                <li class="nav__w10 DAILY WEAR">
+                    <a href="/Article/ArticleList?cate=0&amp;page=1">
+                        
+                        <span class="translate_tw">DAILY WEAR</span>
+                        <span class="translate_en">DAILY WEAR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-  <% end %>
+    <div class="side_link_ row">
+        <div class="link_to_pic_products">
+            <%= link_to "#" do %>
+                <%= image_tag "category/clothes/clothes-3.jpg" %>
+            <% end %>
+            <%= link_to "#" do %>
+                <%= image_tag "category/clothes/clothes-2.jpg" %>
+            <% end %>
+            <%= link_to "#" do %>
+                <%= image_tag "category/clothes/clothes-1.jpg" %>
+            <% end %>
+            <ul class="link_to_pic_slide">
+                <li>
+                <%= button_tag "0",type: 'button', id: '0' %>
+                </li>
+                <li>
+                <%= button_tag "1",type: 'button', id: '1' %>
+                </li>
+                <li>
+                <%= button_tag "2",type: 'button', id: '2' %>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="products-list-content--result">
+        <ul class="items">
+            <% @products.each do |product| %>
+                <li>
+                    <!-- 商品連接到修改 -->
+                    <%= link_to edit_admin_product_path(product) , class: "items__image" do %>
+                        <%= image_tag product.image.url ,title: product.name , alt: product.name %>
+                    <% end %>
+                    <!-- 商品資訊 -->
+                    <div class="item_info">
+                        <div class="productname">
+                            <%= link_to product.name , edit_admin_product_path(product) %>
+                        </div>
+                        <ul class="size">
+                            <li class="<%= render_nosize_line(product.s) %>">
+                                    <span>S: <%= product.s %></span>件                                
+                            </li>
+                            <li class="<%= render_nosize_line(product.m) %>">
+                                    <span>M: <%= product.m %></span>件
+                            </li>
+                            <li class="<%= render_nosize_line(product.l) %>">
+                                <span>L: <%= product.l %></span>件
+                            </li>
+                        </ul>
+                        <p>
+                            <span>TWD.<%= product.price %> </span>
+                        </p>
+                    </div>
+                </li>        
+            <% end %>  
+        </ul>
+    </div>
 </div>
+<%= javascript_include_tag 'productindex' %>
