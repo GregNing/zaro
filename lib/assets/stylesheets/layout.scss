@@ -1,18 +1,73 @@
 //商品 index
 .product-body{
-    margin-top: 10%;
+    margin-top: 5%;
     .products-header{
+        display: block;
+        width: 100%;
+        max-width: 1920px;
+        height: 55px;
+        margin-top: 9px;
         .link_to_products_info{
             display: block;
             position: fixed;
             z-index: 99;
+            max-width: 1920px;
+            width: 100%;
+            left: 0;
+            right: 0;
             ul{
-                list-style: none;
+                list-style: none;border-bottom: 1px solid #bcbcbc;
+                padding: 0;
+                margin: auto;
+                background-color: #fff;
+                border-radius: 0 0 5px 5px;
+                box-shadow: 0 10px 20px -12px rgba(0,0,0,0.42), 0 3px 20px 0px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.2);                
+                -webkit-transition: all 200ms ease 0s;
+                -moz-transition: all 200ms ease 0s;
+                -o-transition: all 200ms ease 0s;
+                -ms-transition: all 200ms ease 0s;
+                transition: all 200ms ease 0s;
                 li{
                     display: inline-block;
+                    text-align: center;
+                    margin: 10px 10px;
+                    a{
+                        text-decoration: none;
+                        display: block;                        
+                        padding: 5px;
+                        color: #707070;
+                        font-weight: 400;
+                        letter-spacing: 1px;
+                        span{
+                            display: block;
+                            -webkit-transition: opacity .3s;
+                            -moz-transition: opacity .3s;
+                            -o-transition: opacity .3s;
+                            transition: opacity .3s;                                
+                            &:first-child{
+                             opacity: 0;
+                            }
+                            &:last-child{
+                                opacity: 1;
+                                margin-top: -20px;
+                            }
+                        }
+                        &:hover{
+                            span{
+                                &:first-child{
+                                    opacity: 1;
+                                }
+                                &:last-child{
+                                    opacity: 0;
+                                }
+                            }
+                        }                        
+                    }
                 }
             }
         }
+    }
+    .side_link_{
         .link_to_pic_products{
             max-width: 1920px;
             width: 100%;
@@ -193,13 +248,13 @@
 nav.navbar-inedx{    
     background-color: #fff;
     padding: 0;
-    border-radius: 0 0 5px 5px;
+    // border-radius: 0 0 5px 5px;
     box-shadow: none;    
     .container-fluid{
-        border-bottom: 1px solid #d3d3d3;
+        // border-bottom: 1px solid #d3d3d3;
+        // border-radius: 5px;
         padding-bottom: 10px;
         padding-top: 10px;
-        border-radius: 5px;
         .navbar-header{
             padding-left: 2%;
         }
