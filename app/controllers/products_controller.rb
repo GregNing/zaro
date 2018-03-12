@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
     before_action :find_product_id,except: [:index, :create, :new]
     def index
-        @products = Product.all.order_position.page(params[:page]).per(8)
+        @products = Product.order_position.page(params[:page]).per(8)
     end
 
     def show

@@ -1,10 +1,81 @@
+<% provide :zaro_title, @product.name %>
+<div class="product-content">
+  <!-- 圖片 -->
+  <div class="col-md-8">
+    <div class="products-images">
+    <%= image_tag(@product.image.url) %>
+    <%= image_tag(@product.image.url) %>
+      <% if false %>                    
+      <% if @product.image.present? %>
+        <%= image_tag(@product.image.url) %>
+      <% else %>
+        <%= image_tag("http://placehold.it/400x400&text=No Pic") %>
+      <% end %>
 
+      <% end %>
+    </div>
+  </div>
+  <!-- 圖片 end-->
+  <!-- 商品介紹 -->
+  <div class="col-md-4">
+        <div class="product-info">
+          <div class="info-header">
+            <h3> <%= @product.name %> </h3>
+            <h4> <%= @product.category.name %> </h4>
+            <h4> $  <%= @product.price %> NT </h4>
+          </div>
+        <!-- 商品顏色尺寸 -->
+        <div class="product-color">
+          COLOR: <span>黑</span>
+            <div>
+            <p>尚未選擇尺寸</p>
+            </div>
+            <ul>
+              <li>
+                <%= link_to "#" do %>
+                <%= image_tag "category/color/black.jpg" %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to "#" do %>
+                <%= image_tag "category/color/brown.jpg" %>
+                <% end %>                
+              </li>
+            </ul>
+        </div>
+        <!-- 商品顏色尺寸 end -->
+        <!-- 尺寸 size -->
+        <div class="product-size">
+          <div id="wrapper_select_text" class="wrapper_select_text">
+            <span>SIZE</span>
+            <ul class="select_list">
+							<li><a href="#">S</a></li>
+							<li><a href="#">M</a></li>
+							<li><a href="#">L</a></li>
+						</ul>
+          </div>
+        </div>
+        <!-- 尺寸 size end-->
+        <div class="product-quantity">
+            <%= link_to "#" ,id: "quantity-minus",class: "quantity-minus" do %>
+            <i class="material-icons">remove</i>
+            <% end %>            
+            <input type="text" name="quantity" value="1" id="quantity-input" class="quantity-input">            
+            <%= link_to "#", id: "quantity-plus", class: "quantity-plus" do %>
+            <i class="material-icons">add</i>
+            <% end %>
+        </div>
+      </div>
+  </div>
+</div>
+<!-- 商品介紹 end -->
+    <% if false %>     
 <div class="row">
   <div class="col-md-6">
     <% if @product.image.present? %>
-      <%= image_tag(@product.image.medium.url, class: "thumbnail") %>
+      <%= image_tag(@product.image.url) %>
     <% else %>
-      <%= image_tag("http://placehold.it/400x400&text=No Pic", class: "thumbnail") %>
+      <%= image_tag("http://placehold.it/400x400&text=No Pic") %>
     <% end %>
   </div>
   <div class="col-md-6">
@@ -14,6 +85,8 @@
         <%= @product.description %>
       </p>
     </div>
+      
+    
     <div> 数量 : <%= @product.quantity %> </div>
     <div class="product-price"> ￥ <%= @product.price %> </div>
     <div class="pull-right">
@@ -24,5 +97,7 @@
         已銷售一空
       <% end %>            
     </div>
+      
   </div>
 </div>
+ <% end %>

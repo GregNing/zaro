@@ -34,21 +34,21 @@ body{
     letter-spacing: 3.4px;
     line-height: 1;
 }
-
-.zaro-logo::before {
-	content: '';
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	border-width: 2px 0;
-	border-color: #282828;
-	border-style: solid;
-	left: 0;
-	-webkit-transform: translate3d(-101%,0,0);
-	transform: translate3d(-101%,0,0);
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
+//會出現上下border style樣式
+// .zaro-logo::before {
+// 	content: '';
+// 	position: absolute;
+// 	height: 100%;
+// 	width: 100%;
+// 	border-width: 2px 0;
+// 	border-color: #282828;
+// 	border-style: solid;
+// 	left: 0;
+// 	-webkit-transform: translate3d(-101%,0,0);
+// 	transform: translate3d(-101%,0,0);
+// 	-webkit-transition: -webkit-transform 0.5s;
+// 	transition: transform 0.5s;
+// }
 
 .zaro-logo:hover::before {
 	-webkit-transform: translate3d(0,0,0);
