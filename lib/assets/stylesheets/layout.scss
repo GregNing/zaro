@@ -586,7 +586,8 @@ nav.navbar-inedx{
     -ms-transition: all 0.3s ease-out;
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
-    &.active{
+    &.active,
+    &:hover{
         border-radius: 5px 5px 0 0;
         background: #8d8d8d;
         box-shadow: none;        
@@ -603,6 +604,7 @@ nav.navbar-inedx{
             text-align: center;
             pointer-events: auto;
             opacity: 1;
+            visibility: visible;
         }
     }
     &:after{
@@ -639,6 +641,7 @@ nav.navbar-inedx{
         max-height: 0;
         overflow: hidden;
         opacity: 0;
+        visibility: hidden;
         pointer-events: none;
         li{            
             a{
