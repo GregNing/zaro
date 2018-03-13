@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   resources :products do
     member do
     post :add_to_cart
+    post :buy_or_add_to_cart
+    post :edit_size_quantity
     end
   end
   resources :carts do

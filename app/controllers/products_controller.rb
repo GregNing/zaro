@@ -7,6 +7,21 @@ class ProductsController < ApplicationController
     def show
         
     end
+    def edit_size_quantity     
+        case params[:size]
+        when "S"
+            @quantity = @product.s
+        when "M"
+            @quantity = @product.m
+        when "L"
+            @quantity = @product.l
+        end               
+    end
+    #直接購買或是加入購物車
+    def buy_or_add_to_cart
+        byebug
+        extend CommonHelper        
+    end
     def add_to_cart
         extend CommonHelper
         #不可重複加入商品

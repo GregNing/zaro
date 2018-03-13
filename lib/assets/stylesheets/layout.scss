@@ -238,7 +238,7 @@
             }
             div {
                 display: inline;
-                p{
+                label{
                     color: #383838;
                     float: right;
                 }   
@@ -266,7 +266,7 @@
         //尺寸
         .product-size{
             width: 105px;
-            display: inline-block;
+            display: inline-block;            
         }
         //庫存
         .product-quantity{
@@ -343,7 +343,8 @@
                     font-size: 14px;
                     i{
                         font-size: 16px;
-                        color: #1f1f1f;                        
+                        color: #1f1f1f;
+                        top: 0;
                     }
                 }
                 &:hover{
@@ -372,9 +373,10 @@
             .buyproduct{
                 display: inline-block;
                 width: 150px;
-                a{
+                button{
                     box-sizing: border-box;
-                    padding: 7px 35px;
+                    line-height: 35px;
+                    padding: 0;
                     text-align: center;
                     cursor: pointer;
                     transition: background-color .3s ease,border-color .3s ease,color .3s ease;
@@ -658,6 +660,7 @@ nav.navbar-inedx{
   }
 }
 .wrapper_select_text{
+    z-index: 1;
     position: relative;
     text-align: center;
     width: 100px;    

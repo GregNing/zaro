@@ -17,6 +17,8 @@
   </div>
   <!-- 圖片 end-->
   <!-- 商品介紹 -->
+  <!-- 商品操作表單，加入購物車以及下單的數據 -->
+  <%= simple_form_for @product, method: :post, remote: true, url: buy_or_add_to_cart_product_path(@product) do |f| %>
   <div class="col-md-4">
         <div class="product-info">
           <div class="info-header">
@@ -28,7 +30,8 @@
         <div class="product-color">
           COLOR: <span>黑</span>
             <div class="size-info">
-            <p>尚未選擇尺寸</p>
+            <%= f.label :size, '尚未選擇尺寸', name: "size" %>
+            <%= f.input_field "", name: "size", value: "Size",id: "size" ,type: "hidden" %>            
             </div>
             <ul>
               <li>
@@ -44,20 +47,18 @@
             </ul>
         </div>
         <!-- 商品顏色尺寸 end -->
-        <!-- 商品操作表單，加入購物車以及下單的數據 -->
-        <%= simple_form_for @product, method: :post, remote: true, url: product_path(@product) do |f| %>        
         <!-- 尺寸 size -->
         <div class="product-size">
           <div id="wrapper_select_text" class="wrapper_select_text">
             <span>SIZE</span>
             <ul class="select_list">
-							<li><a href="#">S</a></li>
-							<li><a href="#">M</a></li>
-							<li><a href="#">L</a></li>
+							<li><%= link_to "S", edit_size_quantity_product_path(@product,size: "S"), method: :post, remote: true %></li>
+							<li><%= link_to "M", edit_size_quantity_product_path(@product,size: "M"), method: :post, remote: true %></li>
+							<li><%= link_to "L", edit_size_quantity_product_path(@product,size: "L" ), method: :post, remote: true %></li>
 						</ul>
           </div>
         </div>
-        <!-- 尺寸 size end-->        
+        <!-- 尺寸 size end-->
         <!-- 商品庫存 -->
         <div class="product-quantity">
             <%= link_to "#" ,id: "quantity-minus",class: "quantity-minus" do %>
@@ -72,54 +73,19 @@
         <!-- 加入購物車 -->
         <div class="product_buyandaddtocart">
           <div class="addtocart">
-            <%= button_tag type:'submit' do %>
-            <i class="fa fa-cart-arrow-down"></i>
-              ADD TO CART
+            <%= button_tag type:'button',class: "btn btn-raised", id: "add_to_cart", rel: "tooltip",title: "請選擇尺寸" do %>
+              請選擇尺寸
             <% end %>
           </div>
           <div class="buyproduct">
-            <%= link_to "#" do %>
+            <%= button_tag type:'button',class: "btn btn-raised", id: "buy_product",rel: "tooltip",title: "馬上下單" do %>
               立刻購買
             <% end %>
           </div>          
         <!-- 加入購物車 end -->
-        </div>
-        <% end %>
-      </div>
+        </div>       
+      </div>       
   </div>
+  <% end %>
 </div>
 <!-- 商品介紹 end -->
-
-
-    <% if false %>     
-<div class="row">
-  <div class="col-md-6">
-    <% if @product.image.present? %>
-      <%= image_tag(@product.image.url) %>
-    <% else %>
-      <%= image_tag("http://placehold.it/400x400&text=No Pic") %>
-    <% end %>
-  </div>
-  <div class="col-md-6">
-    <h2> <%= @product.name %> </h2>
-    <div style="height:100px;">
-      <p>
-        <%= @product.description %>
-      </p>
-    </div>
-      
-    
-    <div> 数量 : <%= @product.quantity %> </div>
-    <div class="product-price"> ￥ <%= @product.price %> </div>
-    <div class="pull-right">
-      
-      <% if @product.quantity > 0 %>
-        <%= link_to("加入购物车", add_to_cart_product_path(@product),method: :post ,class: "btn btn-danger btn-lg") %>
-      <% else %>
-        已銷售一空
-      <% end %>            
-    </div>
-      
-  </div>
-</div>
- <% end %>
