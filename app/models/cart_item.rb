@@ -8,9 +8,15 @@
 #  quantity   :integer          default(1)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  size       :string
 #
 
 class CartItem < ApplicationRecord
     belongs_to :cart
     belongs_to :product
+
+    def change_quantity!(quantity)        
+        self.quantity += quantity
+        self.save!        
+    end
 end
