@@ -1,5 +1,5 @@
 module ProductsHelper
-    def description_format(product)        
+    def render_description_format(product)        
         simple_format(product.description)        
     end
     #如果型號件數為0 則會新增以下的style

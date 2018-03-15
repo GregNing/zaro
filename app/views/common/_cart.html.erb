@@ -1,0 +1,58 @@
+<% extend CommonHelper %>
+<%= link_to carts_path , class: "carts-item" do %>
+    <i class="fa fa-shopping-cart fa-2x"> </i>
+    <%= content_tag(:span,current_cart.products.count)  %>
+<% end %>
+<div class="dropdown-menu cart-body">
+    <div class="cart">
+        <div class="cart-header" data-background-color="blue">
+            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        </div>
+        <br/> 
+        <div class="cart-content">
+            <!-- 找出所有存在此購物車的商品 -->
+            <% @cart_items = current_cart.get_items %>
+            
+            <% if @cart_items.present? %>
+                <div class="table-body">
+                    <table>
+                        <tbody>
+                            <% @cart_items.each do |item| %>
+                              <%= render "common/cart_item", item: item %>
+                            <% end %>
+                            <tr>
+                                <!-- 計算總共幾件 -->
+                                <td class="td-total-items">
+                                    共<span><%= current_cart.cart_items.count %></span>件
+                                </td>
+                                <td class="td-total-text">
+                                Total
+                                </td>
+                                <td colspan="2" class="td-total-price">
+                                <small>$ </small>
+                                <span>
+                                    <%= render_calculate_total_price(current_cart.total_price) %>
+                                </span>
+                                </td>                                
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="td-to-bill">
+                                <%= link_to checkout_cart_path(current_cart, item_ids: @cart_items.ids.map(&:to_s)),
+                                class: "btn-checkout btn btn-raised btn-round btn-sm" do %>
+                                    去结帳
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                <% end %>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <% else %>
+            <div class="cart-empty">
+                <h5> <%= fa_icon "shopping-cart",text: "尚未購買任何商品" %> </h5>
+            </div>
+            <% end %>
+            
+        </div>
+    </div>
+</div>

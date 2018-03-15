@@ -73,12 +73,13 @@
         <!-- 加入購物車 -->
         <div class="product_buyandaddtocart">
           <div class="addtocart">
-            <%= button_tag type:'button',class: "btn btn-raised", id: "add_to_cart", rel: "tooltip",title: "請選擇尺寸" do %>
+            <%= button_tag type:'button',class: "btn btn-raised",value: "add_to_cart" ,id: "add_to_cart", rel: "tooltip",title: "請選擇尺寸" do %>
               請選擇尺寸
             <% end %>
           </div>
+          <%= hidden_field_tag(:commit, 'update') %>
           <div class="buyproduct">
-            <%= button_tag type:'button',class: "btn btn-raised", id: "buy_product",rel: "tooltip",title: "馬上下單" do %>
+            <%= button_tag type:'button',class: "btn btn-raised",value: "buy_product" , id: "buy_product",rel: "tooltip",title: "馬上下單" do %>
               立刻購買
             <% end %>
           </div>          

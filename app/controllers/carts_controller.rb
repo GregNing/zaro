@@ -1,5 +1,7 @@
-class CartsController < ApplicationController
-    before_action :authenticate_user!
+class CartsController < ApplicationController    
+    def index
+        @cart_items = current_cart.get_items
+    end
     def checkout
         @order = Order.new
     end

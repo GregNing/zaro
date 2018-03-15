@@ -1,0 +1,29 @@
+<tr>
+  <td class="td-pic">
+    <%= link_to product_path(item.product), class: "img-container img-rounded img-raised" do %>
+      <%= image_tag(item.product.image.url) %>
+    <% end %>
+  </td>
+  <td class="td-name">
+    <%= link_to(item.product.name, product_path(item.product)) %>
+    <br/>
+    <small><%= render_description_format(item.product) %></small>
+  </td>
+  <td class="td-number text-right">
+    <% if item.quantity == 0 %>
+    已售完
+    <% else %>
+    <small>$</small>
+    <%= render_calculate_total_price(item.product.price) %>
+    x
+    <%= item.quantity %>
+    <% end %>
+  </td>
+  <td class="remove-items">
+    <button type="button" rel="tooltip" title="Remove item" class="btn btn-simple"
+    data-toggle="modal" data-target="#confirm-dialog">
+      <i class="material-icons">close</i>
+    </button>
+    <%= link_to("刪除", cart_item_path(item), class: "invisible", method: :delete, remote: true, id: "cart-btn-delete-#{item.id}") %>
+  </td>
+</tr>

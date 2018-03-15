@@ -9,4 +9,8 @@ module CartsHelper
         # sum
         cart.total_price
     end
+    
+    def render_calculate_total_price(price)
+        sprintf("%2.2f", price)
+    end  
 end

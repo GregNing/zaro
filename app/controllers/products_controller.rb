@@ -18,12 +18,40 @@ class ProductsController < ApplicationController
         end               
     end
     #直接購買或是加入購物車
-    def buy_or_add_to_cart
-        byebug
+    def buy_or_add_to_cart        
         extend CommonHelper        
+        @size = params[:size].to_s        
+        if @size != "M" && @size != "L" && @size != "S"                    
+            redirect_back fallback_location: root_path,warning: "請選擇尺寸!"            
+            return
+        end
+        @quantity = params[:quantity].to_i
+        case params[:commit]
+        #加入購物車
+        when "add_to_cart"            
+            if current_cart.add_product_to_cart!(@product,@size,@quantity)
+                flash.now[:notice] = "已將#{@product.name} #{@size}號加入購物車"
+            else
+                flash.now[:warning] = "已售完#{@product.name}"
+            end
+        #直接購買
+        when "buy_product"
+            #S號庫存
+            if @size == "S" && @quantity > @poduct.s
+                redirect_back fallback_location: root_path,warning: "您下單S號數量已超出庫存量!"
+            #M號庫存
+            elsif @size == "M" && @quantity > @poduct.m
+                redirect_back fallback_location: root_path,warning: "您下單M號數量已超出庫存量!"
+            #L號庫存
+            elsif @size == "L" && @quantity > @poduct.l
+                redirect_back fallback_location: root_path,warning: "您下單L號數量已超出庫存量!"
+            end
+            item = current_cart.add_product_to_cart!(@product,@size,@quantity)
+            redirect_to checkout_cart_path(item_ids:[item.id])
+        end
     end
     def add_to_cart
-        extend CommonHelper
+        extend CommonHelper        
         #不可重複加入商品
         # if !current_cart.products.include?(@product)
         #     current_cart.add_product_to_cart(@product)    
@@ -41,4 +69,8 @@ class ProductsController < ApplicationController
     def product_params
         params.require(:product).permit(:name,:description,:quantity,:price)
     end
+    #過濾字串
+    def validate_search_key
+        @query = params[:query].gsub(/\|\'|\/|\?/, "") if params[:query].present?
+    end    
 end
