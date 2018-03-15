@@ -49,6 +49,15 @@ class Cart < ApplicationRecord
         end
         sum.round(3)
     end
+    #計算總共幾件在購物車
+    def total_items
+        sum = 0
+        cart_items.each do |cart_item|
+            sum += cart_item.quantity
+        end
+        sum
+    end 
+
     #將購物車清空
     def clean!
         cart_items.destroy_all

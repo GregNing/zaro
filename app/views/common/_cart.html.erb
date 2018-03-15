@@ -1,7 +1,7 @@
 <% extend CommonHelper %>
 <%= link_to carts_path , class: "carts-item" do %>
     <i class="fa fa-shopping-cart fa-2x"> </i>
-    <%= content_tag(:span,current_cart.products.count)  %>
+    <%= content_tag(:span,current_cart.total_items)  %>
 <% end %>
 <div class="dropdown-menu cart-body">
     <div class="cart">
@@ -23,7 +23,7 @@
                             <tr>
                                 <!-- 計算總共幾件 -->
                                 <td class="td-total-items">
-                                    共<span><%= current_cart.cart_items.count %></span>件
+                                    共<span><%= current_cart.total_items %></span>件
                                 </td>
                                 <td class="td-total-text">
                                 Total
