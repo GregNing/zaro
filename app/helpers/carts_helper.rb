@@ -9,8 +9,8 @@ module CartsHelper
         # sum
         cart.total_price
     end
-    
-    def render_calculate_total_price(price)
+    #算點數到第2位
+    def render_calculate_total_price(price)        
         sprintf("%2.2f", price)
     end  
 end

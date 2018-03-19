@@ -18,8 +18,7 @@ class Cart < ApplicationRecord
         @cart_items = cart_items.includes(:product)
     end
     #新增商品至購物車
-    def add_product_to_cart!(product , size ,quantity)
-                
+    def add_product_to_cart!(product , size ,quantity)                
         if products.include?(product)
             @cart_item = cart_items.find_by(product_id: product.id)
         else
@@ -29,21 +28,26 @@ class Cart < ApplicationRecord
         
         #在此判斷size庫存量        
         sizequantity = 0
-        if size == "S"
+        if size == :s
             sizequantity = product.s
-        elsif size == "M"
+        elsif size == :m
             sizequantity = product.m
-        elsif size == "L"
+        elsif size == :l
             sizequantity = product.l
         end
-        
-        @cart_item.change_quantity!(quantity) if @cart_item.quantity + quantity <= sizequantity
+        #size_quantity_to_change會回傳該size的庫存量
+        @cart_item.change_quantity!(size,quantity) if @cart_item.size_quantity_to_change(size) + quantity <= sizequantity
     end
+    #計算總共金額
     def total_price
         sum = 0.0
+        quantity = 0        
         cart_items.each do |cart_item|
             if cart_item.product.price.present?
-            sum += cart_item.quantity * cart_item.product.price
+                #轉 hash                
+                eval(cart_item.quantity).each { | k , v| quantity += v }                
+                sum += quantity * cart_item.product.price
+                quantity= 0
             end
         end
         sum.round(3)
@@ -51,8 +55,10 @@ class Cart < ApplicationRecord
     #計算總共幾件在購物車
     def total_items
         sum = 0
+        @cartitem = Hash.new
         cart_items.each do |cart_item|
-            sum += cart_item.quantity
+            @cartitem = eval(cart_item.quantity)
+            @cartitem.each { | k , v |  sum += v }
         end
         sum
     end 
