@@ -23,8 +23,9 @@
     <% end %>
   </td>
   <td class="remove-items">
-    <button type="button" rel="tooltip" title="Remove item" class="btn btn-simple"
-    data-toggle="modal" data-target="#confirm-dialog">
+    <button type="button" rel="tooltip" title="Remove item" class="btn btn-simple" 
+    data-toggle="modal" data-target="#confirm-dialog" 
+    onclick='javascript: confirm.confirmRemoveCartItem("<%= item.id %>", "確定將 <%= item.product.name %> 從購物車移除嗎?!")'>
       <i class="material-icons">close</i>
     </button>
     <%= link_to("刪除", cart_item_path(item), class: "invisible", method: :delete, remote: true, id: "cart-btn-delete-#{item.id}") %>

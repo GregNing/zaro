@@ -39,6 +39,8 @@ Rails.application.routes.draw do
       # post :checkout
     end
     member do
+      post :delete_item
+      post :do_checkout
       get :checkout
     end
   end
