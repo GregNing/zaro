@@ -38,15 +38,13 @@ class CartItem < ApplicationRecord
         end
     end
     #輸入 size 回傳成 quantity(庫存量) ex: input "S" puts 5 
-    def size_quantity_to_change(size)        
-        #轉所需的hash
-        @size = eval(":#{size.to_s.downcase}")
+    def size_quantity(size)
         @result = 0
         if self.quantity.present?            
             #將庫存量 text 轉 hash
             @quantity = eval(self.quantity)
             #將size 也轉為hash 在此判斷是否已存在此size
-            @result = @quantity[@size].blank? ? 0 : @quantity[@size]
+            @result = @quantity[size].blank? ? 0 : @quantity[size]
         end                
         return @result
     end

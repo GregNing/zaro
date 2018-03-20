@@ -18,7 +18,8 @@ class Cart < ApplicationRecord
         @cart_items = cart_items.includes(:product)
     end
     #新增商品至購物車
-    def add_product_to_cart!(product , size ,quantity)                
+    def add_product_to_cart!(product , size ,quantity)
+        
         if products.include?(product)
             @cart_item = cart_items.find_by(product_id: product.id)
         else
@@ -34,9 +35,9 @@ class Cart < ApplicationRecord
             sizequantity = product.m
         elsif size == :l
             sizequantity = product.l
-        end
-        #size_quantity_to_change會回傳該size的庫存量
-        @cart_item.change_quantity!(size,quantity) if @cart_item.size_quantity_to_change(size) + quantity <= sizequantity
+        end        
+        #size_quantity_to_change會回傳該size的庫存量        
+        return (@cart_item.size_quantity(size) + quantity <= sizequantity) ? @cart_item.change_quantity!(size,quantity)  : false
     end
     #計算總共金額
     def total_price

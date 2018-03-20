@@ -1,0 +1,4 @@
+document.getElementsByClassName('cart-nav')[0].innerHTML = '<%= escape_javascript render "common/cart"  %>';
+$('.navbar').after('<%= escape_javascript render "common/flashes" %>');
+slideup();
+$.material.init();

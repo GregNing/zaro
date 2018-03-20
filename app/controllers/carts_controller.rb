@@ -1,11 +1,20 @@
 class CartsController < ApplicationController    
     def index
+        extend CommonHelper
         @cart_items = current_cart.get_items
     end
-
+    
+    def operations
+        if params[:delete_item].present? # 用户删除单个课程
+        delete_item
+        elsif params[:delete_items].present? # 用户删除多个课程
+        delete_items
+        elsif params[:checkout].present? # 用户进行结算
+        do_checkout
+        end
+    end
     #刪除單一商品
-    def delete_item
-        byebug
+    def delete_item        
         #若存在此商品轉成陣列
         @item_ids = params[:item_ids].present? ? params[:item_ids].to_a : []
         @cart_item = CartItem.find(params[:delete_item])

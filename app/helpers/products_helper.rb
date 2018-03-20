@@ -8,4 +8,8 @@ module ProductsHelper
             "old"
         end
     end
+    def render_product_image(product)
+        url = product.image.file.present? ? product.image_url : "http://placehold.it/200x200&text=No Pic"
+        image_tag(url)
+    end
 end

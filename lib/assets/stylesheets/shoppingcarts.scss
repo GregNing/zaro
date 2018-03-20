@@ -1,0 +1,102 @@
+.carts-body{
+    padding-top: 14%;
+    //購物車圖示
+    .card-header-info{
+        background: linear-gradient(60deg, #443f3f, #afb3b5);        
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(68, 79, 80, 0.4);
+        border-radius: 3px;
+        padding: 1rem 15px;
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: -30px;
+        border: 0;
+        i{
+            font-size: 1.5em;
+        }
+        span{            
+            padding-left: 3%;
+            font-weight: 700;
+            font-size: 16px;
+        }
+    }
+    //購物車內容
+    .card-body{
+        //購物車標題
+        .card-title{
+            font-weight: 500;
+            color: #2f2f2f;
+            span{
+                border-bottom: 2.5px solid #130f0f;
+                padding-bottom: 5px;                
+            }
+        }
+        //購物車真正存放物品css
+        .cart-content{
+            .table-responsive{
+                .table-shopping{
+                    .products-info{
+                        text-align: center;
+                        width: 50%;
+                    }
+                    //商品資訊
+                    .cart_items_info{
+                        text-align: left;
+                        .cart-item-container{
+                            color: #8d8d8d;
+                            text-decoration: none;
+                            font-weight: 400;                        
+                            img{
+                                float: left;
+                                width: 120px;
+                                border-radius: 4px;
+                            }
+                            p{
+                                display: block;
+                                padding-left: 25%;
+                                &:first-of-type{
+                                    padding-top: 2%;
+                                }                                
+                            }
+                        }
+                    }
+                    //商品資訊 end
+                    //size 以及數量
+                    .size-quantity{
+                        text-align: center;
+                        margin: auto;
+                        .btn-group{
+                            .selection{
+                                select{
+                                    background: none;
+                                    width: 60px;
+                                    margin: 0;
+                                    padding: 0 8px 0 3px;
+                                    box-sizing: border-box;
+                                    height: 30px;
+                                    border: 1px solid #c5c5c5;
+                                    background-color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //尚未購物 購物車商品是0
+            .cart-empty{
+                text-align: center;
+                margin: auto;
+                a{
+                    float: right;
+                    color: #303030;
+                    border: 1px solid #ebebeb;
+                    background-color: #fff;
+                    &:hover{
+                        background-color: #acacac;
+                        border-color: #acacac;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}

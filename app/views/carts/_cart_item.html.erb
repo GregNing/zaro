@@ -1,0 +1,88 @@
+<tr>
+  <!-- 複選 -->
+  <td>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" name="item_ids[]" value="<%= item.id %>" id="cart-item-select-<%= index %>"/>
+      </label>
+    </div>
+  </td>
+  <!-- 商品資訊 -->
+  <td>
+    <div class="cart_items_info">
+    <%= link_to product_path(item.product), class: "cart-item-container" do %>
+      <%= render_product_image(item.product) %>
+      <!-- 內容 -->
+      <p class="info_name"><%= item.product.name %></p>
+      <p><%= render_description_format(item.product) %></p>
+    <% end %>
+    </div>
+  </td>  
+  <!-- 數量 -->
+  <td class="size-quantity">    
+    <div class="btn-group">    
+        <!-- 在這將 product 轉為 hash 判斷庫存量有多少 -->
+        <% @producthash =  item.product.attributes %>
+        <div class="selection">
+        <% eval(item.quantity).each do |k, v|  %>
+            <%= select_tag 'quantity', options_for_select(1..@producthash[k.to_s], v),
+            onchange: "javascript: cartitem_tweak.changeCartitemquantity(#{v.to_json},#{k.to_json});" ,class: "quantity-select"%>
+         <% end %>               
+         </div>     
+    </div>
+  </td>
+  <!-- 单价 -->
+  <td class="td-number text-right">
+    <small>$</small>
+    <%= render_calculate_total_price(item.product.price) %>
+  </td>
+  <!-- 合计 -->
+  <td class="td-number">
+    <small>￥</small>
+    <span id="cart-item-subtotal-<%= index %>">      
+      <%= render_calculate_total_price(current_cart.total_price) %>
+    </span>
+  </td>
+  <!-- 删除按钮 -->
+  <td class="td-actions text-center">
+    <!-- 伪装的删除按钮，用来呼出确认删除对话框 -->
+    <button type="button" rel="tooltip" title="Remove item" class="btn btn-simple" 
+    data-toggle="modal" data-target="#confirm-dialog" 
+    onclick='javascript: confirm.confirmRemoveCartItem("<%= item.id %>", "確定將 <%= item.product.name %> 從購物車移除嗎?!")'>
+      <i class="material-icons">close</i>
+    </button>    
+    <!-- 实际的删除按钮，在页面上不显示，点击确认删除的确定按钮时再触发 -->
+    <%= f.button :submit, name: "delete_item", value: item.id, class: "invisible", id: "cart-btn-delete-#{item.id}" %>    
+  </td>
+</tr>
+
+<script type='text/javascript'>
+var cartitem_tweak = (function () {
+    let changeCartitemquantity = (quantity, size) => {        
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState == XMLHttpRequest.DONE) {   // xhr.DONE == 4
+            if (xhr.status == 200) {
+                //document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+                // console.log(xhr.responseText);
+            }
+            else if (xhr.status == 400) {
+                console.log('There was an error 400');
+            }
+            else {
+                console.log('something else other than 200 was returned');
+            }
+            }
+        };
+        let data = new FormData()
+        data.append('size', size);
+        data.append('quantity', quantity);        
+        xhr.open("PATCH", "<%= cart_item_path(item.product_id) %>", true);
+        xhr.setRequestHeader("X-CSRF-Token",document.querySelector('meta[name="csrf-token"]').content);
+        xhr.send(data);
+    };
+    return {
+        changeCartitemquantity: changeCartitemquantity,
+    };
+}());
+</script>
