@@ -3,7 +3,7 @@
   <td style="vertical-align: middle;">
     <div class="checkbox">
       <label>
-        <input type="checkbox" name="item_ids[]" value="<%= item.id %>" id="cart-item-select-<%= index %>"/>
+        <input type="checkbox" name="item_ids[]" value="<%= item.id %>" id="cart-item-select-<%= index %>"/>        
       </label>
     </div>
   </td>
@@ -82,7 +82,7 @@ var cartitem_tweak = (function () {
         xhr.send(data);      
     };
     return {
-        changeCartitemquantity: changeCartitemquantity,
+        changeCartitemquantity: changeCartitemquantity,    
     };
 }());
 </script>

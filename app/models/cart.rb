@@ -28,14 +28,7 @@ class Cart < ApplicationRecord
         end
         
         #在此判斷size庫存量        
-        sizequantity = 0
-        if size == :s
-            sizequantity = product.s
-        elsif size == :m
-            sizequantity = product.m
-        elsif size == :l
-            sizequantity = product.l
-        end        
+        sizequantity = product.attributes[size.to_s]
         #size_quantity_to_change會回傳該size的庫存量        
         return (@cart_item.size_quantity(size) + quantity <= sizequantity) ? @cart_item.change_quantity!(size,quantity)  : false
     end

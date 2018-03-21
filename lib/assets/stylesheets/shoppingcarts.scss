@@ -34,9 +34,14 @@
         .cart-content{
             .table-responsive{
                 .table-shopping{
+                    letter-spacing: 1.4px;
                     .products-info{
                         text-align: center;
                         width: 50%;
+                        span{
+                        display: block;
+                        padding-right: 12%;                            
+                        }
                     }
                     //商品資訊
                     .cart_items_info{
@@ -118,6 +123,45 @@
                         }
                     }
                     //刪除單項商品 end
+                    //checkbox  style微調
+                    .td-checkbox{
+                        padding: 0 0 0 7px;
+                        margin: auto;
+                        label{
+                            height: 0;
+                        }
+                    }
+                    //checkbox  style微調 end
+                    //設定checkbox 顏色 +代表下一個 
+                    input[type="checkbox"]:checked + .checkbox-material .check{
+                    background: #696969;
+                    }
+                    .checked-to-delete{
+                        small{
+                            font-weight: 400;
+                            color: #626262;
+                            span{
+                                color: #4a4a4a;
+                                font-size: 14px;
+                            }                            
+                        }
+                        .btn-checked{
+                            margin-left: 3%;
+                            background-color: #FFFFFF;
+                            color: #999999;
+                        }
+                    }
+                    .td-total-price{
+                        vertical-align: middle;
+                        text-align: center;     
+                        font-size: 15px;
+                        font-weight: 400;
+                        letter-spacing: 1.4px;
+                        color: #707070;
+                        .total-price{
+                            color: #111;
+                        }
+                    }
                 }
             }
             //尚未購物 購物車商品是0
