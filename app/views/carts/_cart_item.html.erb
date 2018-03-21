@@ -1,6 +1,6 @@
 <tr>
   <!-- 複選 -->
-  <td>
+  <td style="vertical-align: middle;">
     <div class="checkbox">
       <label>
         <input type="checkbox" name="item_ids[]" value="<%= item.id %>" id="cart-item-select-<%= index %>"/>
@@ -22,49 +22,48 @@
   <td class="size-quantity">    
     <div class="btn-group">    
         <!-- 在這將 product 轉為 hash 判斷庫存量有多少 -->
-        <% @producthash =  item.product.attributes %>
-        <div class="selection">
+        <% @producthash =  item.product.attributes %>        
         <% eval(item.quantity).each do |k, v|  %>
-            <%= select_tag 'quantity', options_for_select(1..@producthash[k.to_s], v),
-            onchange: "javascript: cartitem_tweak.changeCartitemquantity(#{v.to_json},#{k.to_json});" ,class: "quantity-select"%>
-         <% end %>               
-         </div>     
+          <div class="selection">
+             <%= content_tag(:p, "尺寸- #{k.upcase}") %>
+            <%= select_tag 'quantity', options_for_select(1..@producthash[k.to_s] , v),
+            onchange: "javascript: cartitem_tweak.changeCartitemquantity(#{item.product_id},#{k.to_json},this.value);" ,class: "quantity-select"%>
+          </div>
+         <% end %>                        
     </div>
   </td>
-  <!-- 单价 -->
-  <td class="td-number text-right">
+  <!-- 單價 -->
+  <td class="td-proudct-price">
     <small>$</small>
     <%= render_calculate_total_price(item.product.price) %>
   </td>
-  <!-- 合计 -->
-  <td class="td-number">
-    <small>￥</small>
+  <!-- 總計 -->
+  <td class="td-cart_item-price">
+    <small>$</small>
     <span id="cart-item-subtotal-<%= index %>">      
-      <%= render_calculate_total_price(current_cart.total_price) %>
+      <%= render_calculate_total_price(item.cartitem_total_price) %>
     </span>
   </td>
   <!-- 删除按钮 -->
-  <td class="td-actions text-center">
-    <!-- 伪装的删除按钮，用来呼出确认删除对话框 -->
-    <button type="button" rel="tooltip" title="Remove item" class="btn btn-simple" 
-    data-toggle="modal" data-target="#confirm-dialog" 
-    onclick='javascript: confirm.confirmRemoveCartItem("<%= item.id %>", "確定將 <%= item.product.name %> 從購物車移除嗎?!")'>
-      <i class="material-icons">close</i>
-    </button>    
-    <!-- 实际的删除按钮，在页面上不显示，点击确认删除的确定按钮时再触发 -->
+  <td class="td-delete-actions">
+    <!-- 偽裝刪除鈕 -->
+    <%= button_tag type: 'button', rel: "tooltip",onclick: "javascript: confirm.confirmRemoveCartItem(#{item.id},'確定將#{item.product.name} 從購物車移除嗎!?')" ,
+    data: {title: "Remove item",toggle: "modal",target: "#confirm-dialog" },class: "btn btn-simple" do %>
+        <i class="material-icons">close</i>
+    <% end %>
+    <!-- 實際删除按钮，不顯示於頁面 -->
     <%= f.button :submit, name: "delete_item", value: item.id, class: "invisible", id: "cart-btn-delete-#{item.id}" %>    
   </td>
 </tr>
 
 <script type='text/javascript'>
 var cartitem_tweak = (function () {
-    let changeCartitemquantity = (quantity, size) => {        
+    let changeCartitemquantity = (product,size, quantity ) => {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
             if (xhr.readyState == XMLHttpRequest.DONE) {   // xhr.DONE == 4
-            if (xhr.status == 200) {
-                //document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
-                // console.log(xhr.responseText);
+            if (xhr.status == 200) {                              
+                eval(xhr.responseText);
             }
             else if (xhr.status == 400) {
                 console.log('There was an error 400');
@@ -74,12 +73,13 @@ var cartitem_tweak = (function () {
             }
             }
         };
+        xhr.open("PATCH", `cart_items/${product}`, true);
+        
         let data = new FormData()
         data.append('size', size);
         data.append('quantity', quantity);        
-        xhr.open("PATCH", "<%= cart_item_path(item.product_id) %>", true);
         xhr.setRequestHeader("X-CSRF-Token",document.querySelector('meta[name="csrf-token"]').content);
-        xhr.send(data);
+        xhr.send(data);      
     };
     return {
         changeCartitemquantity: changeCartitemquantity,

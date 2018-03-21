@@ -1,31 +1,49 @@
 class CartItemsController < ApplicationController
     before_action :authenticate_user!
-    before_action :find_cart_item_id, except: [:update]
+    before_action :find_cart_item_id, except: [:update]  
+    # require 'common_helper'
+    # require File.expand_path("../lib/modules/common_helper", __FILE__)  
+    respond_to :html, :js
     def update
-        
+        #判斷是否為空
         if params[:size].blank? || params[:quantity].blank? || params[:quantity].to_i == 0 ||
-           (params[:size] != "s" && params[:size] != "m" && params[:size] != "l")            
+           (params[:size] != "s" && params[:size] != "m" && params[:size] != "l")                       
             render "cart_items/error"
+            return
         end
-        
+        #要修改的庫存量
         @quantity = params[:quantity].to_i
-        #轉hash
-        @size = eval(":"+params[:size].to_s)
+        #szie
+        @size = params[:size].to_s
+        #產品代號
+        @product = Product.find(params[:id])
+
         extend CommonHelper
-        @cart = current_cart
-        # @cart_item = @cart.cart_items.includes(:product).find_by(product_id: params[:id])
-        
-        if @cart.add_product_to_cart!(Product.find(params[:id]),@size,@quantity)
-            # redirect_back fallback_location: root_path, notice: "已成功更新#{@cart_item.product.name}數量"
+        @cart = current_cart                
+        #此錯誤為購物車無此商品
+        if @cart.products.include?(@product)                    
+            #將 product 轉hsah 且算出型號的庫存
+            @product_size_quantity = @product.attributes[@size].to_i            
+            if @quantity <= @product_size_quantity
+                #找出 cart_item 
+                @cart_item = @cart.cart_items.find_by(product_id: @product.id)
+                #將text 轉 hash
+                @cart_item_quantity = eval(@cart_item.quantity)
+                #將size轉hash                
+                #給予型號庫存
+                @cart_item_quantity[eval(":"+@size)] = @quantity
+                #更新庫存
+                @cart_item.update_attributes(quantity: @cart_item_quantity.to_s)
+
+                respond_to do |format|
+                format.js { render "cart_item"}
+                end                
+            else
+                flash.now[:warning] = "已超出#{@product.name}庫存！"
+            end
         else
-            
+            flash.now[:alert] = "購物車無#{@product.name}！"
         end
-        # if  @cart_item.product.quantity >= cart_items_params[:quantity].to_i
-        #     @cart_item.update(cart_items_params)
-        #     redirect_back fallback_location: root_path, notice: "已成功更新#{@cart_item.product.name}數量"
-        # else
-        #     redirect_back fallback_location: root_path, warning: "#{@cart_item.product.name}數量不足無法加入購物車"
-        # end
     end
     #增加數量在商品 show畫面
     def increase

@@ -1,5 +1,5 @@
 .carts-body{
-    padding-top: 14%;
+    padding-top: 12%;
     //購物車圖示
     .card-header-info{
         background: linear-gradient(60deg, #443f3f, #afb3b5);        
@@ -58,15 +58,28 @@
                                 }                                
                             }
                         }
-                    }
+                    }                    
                     //商品資訊 end
                     //size 以及數量
                     .size-quantity{
                         text-align: center;
                         margin: auto;
+                        vertical-align: middle;
                         .btn-group{
+                            width: 100%;
                             .selection{
+                                display: block;
+                                text-align: left;
+                                margin: 15px 0;
+                                p{
+                                    line-height: 2;
+                                    color: #5d5d5d;
+                                    display: inline-block;
+                                    font-weight: 400;
+                                    margin: auto;
+                                }
                                 select{
+                                    float: right;
                                     background: none;
                                     width: 60px;
                                     margin: 0;
@@ -79,6 +92,32 @@
                             }
                         }
                     }
+                    //size 以及數量 end
+                    //單價
+                    .td-proudct-price{
+                        vertical-align: middle;
+                        text-align: right;
+                        color: #5d5d5d;
+                        font-weight: 400; 
+                    }
+                    //單價 end
+                    //單商品價格總計
+                    .td-cart_item-price{
+                        vertical-align: middle;
+                        text-align: right;
+                        color: #5d5d5d;
+                        font-weight: 400; 
+                    }
+                    //單商品價格總計 end
+                    //刪除單項商品
+                    .td-delete-actions{
+                        vertical-align: middle;
+                        text-align: right;
+                        input{
+                            display: none;
+                        }
+                    }
+                    //刪除單項商品 end
                 }
             }
             //尚未購物 購物車商品是0

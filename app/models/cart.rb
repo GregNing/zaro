@@ -19,7 +19,7 @@ class Cart < ApplicationRecord
     end
     #新增商品至購物車
     def add_product_to_cart!(product , size ,quantity)
-        
+        #此商品已經存在夠物車 增加數量
         if products.include?(product)
             @cart_item = cart_items.find_by(product_id: product.id)
         else

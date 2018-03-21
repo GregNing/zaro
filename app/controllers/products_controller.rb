@@ -26,10 +26,11 @@ class ProductsController < ApplicationController
             return
         end
         @quantity = params[:quantity].to_i
+        @size = eval(":#{@size.to_s.downcase}")
         case params[:commit]
         #加入購物車
         when "add_to_cart"            
-            if current_cart.add_product_to_cart!(@product,eval(":#{@size.to_s.downcase}"),@quantity)
+            if current_cart.add_product_to_cart!(@product,@size,@quantity)
                 flash.now[:notice] = "已將#{@product.name} #{@size}號加入購物車"
             else
                 flash.now[:warning] = "已售完#{@product.name}"
@@ -51,15 +52,8 @@ class ProductsController < ApplicationController
         end
     end
     def add_to_cart
-        extend CommonHelper        
-        #不可重複加入商品
-        # if !current_cart.products.include?(@product)
-        #     current_cart.add_product_to_cart(@product)    
-        #     redirect_back fallback_location: root_path, notice: "已將#{@product.name}加入購物車"
-        # else
-        #     redirect_back fallback_location: root_path, warning: "#{@product.name}購物車已有此商品!"
-        # end
-        current_cart.add_product_to_cart(@product)
+        extend CommonHelper
+        current_cart.add_product_to_cart!(@product)
         redirect_back fallback_location: root_path, notice: "#{@product.name}已加入購物車"     
     end
     private

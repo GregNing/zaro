@@ -13,7 +13,7 @@
 class CartItem < ApplicationRecord
     belongs_to :cart, counter_cache: true
     belongs_to :product
-
+    validates :quantity,presence: true
     #修改購物車商品存量
     def change_quantity!(size,quantity)
         #宣告一個 hash變數

@@ -1,4 +1,2 @@
 document.getElementsByClassName('cart-nav')[0].innerHTML = '<%= escape_javascript render "common/cart"  %>';
-$('.navbar').after('<%= escape_javascript render "common/flashes" %>');
-slideup();
-$.material.init();
+document.querySelector('.card-body .cart-content').innerHTML = '<%= j (render partial: "carts/cart_content")  %>';
