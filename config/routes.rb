@@ -43,12 +43,7 @@ Rails.application.routes.draw do
       get :checkout
     end
   end
-  resources :cart_items do
-    member do
-      # patch :increase
-      # patch :decrease
-    end
-  end
+  resources :cart_items 
   resources :orders do
     member do
       post :pay_with_alipay

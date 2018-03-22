@@ -1,5 +1,5 @@
 class CartItemsController < ApplicationController
-    before_action :authenticate_user!
+    # before_action :authenticate_user!
     before_action :find_cart_item_id, except: [:update]  
     # require 'common_helper'
     # require File.expand_path("../lib/modules/common_helper", __FILE__)  
@@ -21,7 +21,7 @@ class CartItemsController < ApplicationController
         extend CommonHelper
         @cart = current_cart                
         #此錯誤為購物車無此商品
-        if @cart.products.include?(@product)                    
+        if @cart.products.include?(@product)
             #將 product 轉hsah 且算出型號的庫存
             @product_size_quantity = @product.attributes[@size].to_i            
             if @quantity <= @product_size_quantity
@@ -45,14 +45,6 @@ class CartItemsController < ApplicationController
             flash.now[:alert] = "購物車無#{@product.name}！"
         end
     end
-    #增加數量在商品 show畫面
-    def increase
-        
-    end
-    #減少數量在商品 show畫面
-    def decrease
-        
-    end    
     def destroy                
         @product = @cart_item.product
         @cart_item.destroy

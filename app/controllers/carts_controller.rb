@@ -32,10 +32,24 @@ class CartsController < ApplicationController
         current_cart.clean!
         redirect_to carts_path, warning: "購物車已經清空!"
     end
+
+    #刪除多個商品 多選
+    def delete_items
+        if params[:item_ids].present?
+            CartItem.where(id: params[:item_ids]).destroy_all
+            flash[:notice] = "已刪除 #{params[:item_ids].count} 件商品"
+        else
+            flash[:warning] = "尚未挑選任何商品"        
+        end
+        respond_to do |format|
+        format.js { render "cart_items/cart_item"}
+        end      
+    end
+
     # 進行結算
     def do_checkout
         unless params[:item_ids].present?
-        flash[:warning] = "請至少挑選一件衣服"
+        flash[:warning] = "尚未挑選任何商品"
         redirect_to carts_path
         else
         redirect_to checkout_cart_path(item_ids: params[:item_ids])

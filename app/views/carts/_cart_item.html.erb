@@ -2,9 +2,9 @@
   <!-- 複選 -->
   <td style="vertical-align: middle;">
     <div class="checkbox">
-      <label>
-        <input type="checkbox" name="item_ids[]" value="<%= item.id %>" id="cart-item-select-<%= index %>"/>        
-      </label>
+    <%= label_tag "" do %>
+      <%= check_box_tag "item_ids[]",item.id,false,class: "item-check",id:"cart-item-select-#{index}" %>
+    <% end %>      
     </div>
   </td>
   <!-- 商品資訊 -->
@@ -40,7 +40,7 @@
   <!-- 總計 -->
   <td class="td-cart_item-price">
     <small>$</small>
-    <span id="cart-item-subtotal-<%= index %>">      
+    <span id="cart-item-total-price-<%= index %>">      
       <%= render_calculate_total_price(item.cartitem_total_price) %>
     </span>
   </td>
