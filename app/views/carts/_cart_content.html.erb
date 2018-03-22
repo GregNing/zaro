@@ -10,7 +10,7 @@
     </div>
   <% else %>
      <!-- simple form -->
-    <%= simple_form_for current_cart , url:delete_items_cart_path(current_cart), method: :patch, remote: true do |f| %>
+    <%= simple_form_for current_cart , url:operations_cart_path(current_cart), method: :patch, remote: true do |f| %>
     <%= f.input_field "", name: "cart-items-count", value: current_cart.cart_items.count ,id: "total-cart-items-count" ,type: "hidden" %>
         <div class="table-responsive">
         <table class="table table-shopping">
@@ -59,7 +59,7 @@
             <tr>
               <td colspan="7" class="text-right">
                 <%= link_to "BACK TO SHOPPING", root_path,class: "btn btn-to-back" %>
-                <%= button_tag type: 'submit', name: "checkout",class: "btn-checkout btn btn-raise" do %>
+                <%= button_tag type: 'submit', name: "checkout",value: true,class: "btn-checkout btn btn-raise" do %>
                 去结算
                 <i class="material-icons">keyboard_arrow_right</i>
                 <% end %>
@@ -158,7 +158,7 @@ var check_function  = (function() {
     //設定ttile step狀態
     let set_step1_titlestyle = () => {
       if (window.location.pathname === "<%= carts_path %>") {
-        document.getElementsByClassName('step1')[0].children[0].classList.add('step_to_shopping');          
+        document.getElementsByClassName('step1')[0].classList.add('step_to_shopping');          
       }      
     }
     //取得所有function

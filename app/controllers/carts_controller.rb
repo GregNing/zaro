@@ -4,29 +4,28 @@ class CartsController < ApplicationController
         @cart_items = current_cart.get_items
     end
     
-    # def operations
-    #     #多選刪除
-    #     if params[:delete_items].present?
-    #     delete_items
-    #     #結算
-    #     elsif params[:checkout].present?
-    #     do_checkout
-    #     end
-    # end
-    #刪除單一商品
-    def delete_item        
-        #若存在此商品轉成陣列
-        @item_ids = params[:item_ids].present? ? params[:item_ids].to_a : []
-        @cart_item = CartItem.find(params[:delete_item])
-        @cart_item.destroy
-        @item_ids.delete(params[:delete_item])
-        flash.now[:notice] = "#{@cart_item.product.name} 已從購物車移除!"
-        render "carts/delete_item" 
+    def operations        
+        #多選刪除
+        if params[:delete_items].present?
+        delete_items
+        #結算
+        elsif params[:checkout].present?
+        redirect_to checkout_cart_path(item_ids: params[:item_ids])
+        end
     end
     #結算頁面
-    def checkout
+    def checkout     
+           
+        if params[:item_ids].present?
+        @items = CartItem.where(id: params[:item_ids])
         @order = Order.new
+        
+        else
+            flash.now[:alert] = "尚未挑選任何商品!"
+            redirect_back fallback_location: root_path            
+        end
     end
+ 
     def clean
         extend CommonHelper
         current_cart.clean!
@@ -45,14 +44,4 @@ class CartsController < ApplicationController
         format.js { render "cart_items/cart_item"}
         end      
     end
-
-    # 進行結算
-    def do_checkout
-        unless params[:item_ids].present?
-        flash[:warning] = "尚未挑選任何商品"
-        redirect_to carts_path
-        else
-        redirect_to checkout_cart_path(item_ids: params[:item_ids])
-        end
-    end    
 end

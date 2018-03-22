@@ -1,5 +1,5 @@
 .carts-body{
-    padding-top: 12%;
+    padding-top: 10%;
     //購物車圖示
     .card-header-info{
         background: linear-gradient(60deg, #443f3f, #afb3b5);        
@@ -32,26 +32,25 @@
                 letter-spacing: 1px;
                 li{
                     float: left;
-                    width: 33.33%;
+                    width: 33.33%;                    
                     &:first-child{
-                        padding-left: 2%;
+                        padding-left: 2%;                        
                     }
                     &:nth-child(2){
-                        text-align: center;
-                        opacity: 0;
+                        text-align: center;                        
                     }
                     &:last-child{
                         text-align: center;
-                        padding-left: 4%;
-                        opacity: 0;
+                        padding-left: 4%;                        
+                    }
+                    &.step_to_shopping span{                        
+                        border-bottom: 2.5px solid #130f0f;
+                        padding-bottom: 5px;          
+                        color: #111;
+                        opacity: 1;
                     }
                     span{
-                        color: #d1d1d1;
-                        &.step_to_shopping{
-                            border-bottom: 2.5px solid #130f0f;
-                            padding-bottom: 5px;          
-                            color: #111;      
-                        }
+                        color: #d1d1d1;                        
                     }
                 }
             }
@@ -102,13 +101,18 @@
                             .selection{
                                 display: block;
                                 text-align: left;
-                                margin: 15px 0;
+                                margin: 10px 0;
                                 p{
                                     line-height: 2;
                                     color: #5d5d5d;
                                     display: inline-block;
                                     font-weight: 400;
                                     margin: auto;
+                                }
+                                span{
+                                    float: right;
+                                    font-size: 15px;
+                                    line-height: 1.8;                                    
                                 }
                                 select{
                                     float: right;

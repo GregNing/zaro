@@ -1,0 +1,38 @@
+<tr>
+  <!-- 商品資訊 -->
+  <td>
+    <div class="cart_items_info">
+    <%= link_to product_path(item.product), class: "cart-item-container" do %>
+      <%= render_product_image(item.product) %>
+      <!-- 內容 -->
+      <p class="info_name"><%= item.product.name %></p>
+      <p><%= render_description_format(item.product) %></p>
+    <% end %>
+    </div>
+  </td>  
+  <!-- 數量 -->
+  <td class="size-quantity">    
+    <div class="btn-group">        
+        <!-- 在這將 product 轉為 hash 判斷庫存量有多少 -->
+        <% @producthash =  item.product.attributes %>        
+        <% eval(item.quantity).each do |k, v|  %>
+          <div class="selection">
+             <%= content_tag(:p, "尺寸- #{k.upcase}") %>
+             <span><%= v %></span>
+          </div>
+         <% end %>                        
+    </div>
+  </td>
+  <!-- 單價 -->
+  <td class="td-proudct-price">
+    <small>$</small>
+    <%= render_calculate_total_price(item.product.price) %>
+  </td>
+  <!-- 總計 -->
+  <td class="td-cart_item-price">
+    <small>$</small>
+    <span>
+      <%= render_calculate_total_price(item.cartitem_total_price) %>
+    </span>
+  </td>
+</tr>
