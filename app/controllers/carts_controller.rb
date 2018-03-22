@@ -4,15 +4,15 @@ class CartsController < ApplicationController
         @cart_items = current_cart.get_items
     end
     
-    def operations
-        if params[:delete_item].present? # 用户删除单个课程
-        delete_item
-        elsif params[:delete_items].present? # 用户删除多个课程
-        delete_items
-        elsif params[:checkout].present? # 用户进行结算
-        do_checkout
-        end
-    end
+    # def operations
+    #     #多選刪除
+    #     if params[:delete_items].present?
+    #     delete_items
+    #     #結算
+    #     elsif params[:checkout].present?
+    #     do_checkout
+    #     end
+    # end
     #刪除單一商品
     def delete_item        
         #若存在此商品轉成陣列

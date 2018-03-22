@@ -48,7 +48,7 @@
   <td class="td-delete-actions">
     <!-- 偽裝刪除鈕 -->
     <%= button_tag type: 'button', rel: "tooltip",onclick: "javascript: confirm.confirmRemoveCartItem(#{item.id},'確定將#{item.product.name} 從購物車移除嗎!?')" ,
-    data: {title: "Remove item",toggle: "modal",target: "#confirm-dialog" },class: "btn btn-simple" do %>
+    data: {title: "刪除",toggle: "modal",target: "#confirm-dialog" },class: "btn btn-simple" do %>
         <i class="material-icons">close</i>
     <% end %>
     <!-- 實際删除按钮，不顯示於頁面 -->

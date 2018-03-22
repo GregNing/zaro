@@ -25,9 +25,35 @@
         .card-title{
             font-weight: 500;
             color: #2f2f2f;
-            span{
-                border-bottom: 2.5px solid #130f0f;
-                padding-bottom: 5px;                
+            margin: 2px 0 12px 0;
+            ul{
+                padding: 0;
+                list-style: none;
+                letter-spacing: 1px;
+                li{
+                    float: left;
+                    width: 33.33%;
+                    &:first-child{
+                        padding-left: 2%;
+                    }
+                    &:nth-child(2){
+                        text-align: center;
+                        opacity: 0;
+                    }
+                    &:last-child{
+                        text-align: center;
+                        padding-left: 4%;
+                        opacity: 0;
+                    }
+                    span{
+                        color: #d1d1d1;
+                        &.step_to_shopping{
+                            border-bottom: 2.5px solid #130f0f;
+                            padding-bottom: 5px;          
+                            color: #111;      
+                        }
+                    }
+                }
             }
         }
         //購物車真正存放物品css
@@ -35,6 +61,7 @@
             .table-responsive{
                 .table-shopping{
                     letter-spacing: 1.4px;
+                    margin: auto;
                     .products-info{
                         text-align: center;
                         width: 50%;
@@ -181,16 +208,18 @@
                 letter-spacing: 1.4px;
                 border: 1px solid #ebebeb;
                 &:hover{
-                    background-color: #999999;
+                    background-color: #111;
                     color: #FFFFFF;
-                    border-color: #999999;
+                    border-color: #111;
+                    opacity: .7;
                 }
             }
             .btn-checkout{
                 background-color: #111;
                 color: #fff;
+                letter-spacing: 1.4px;
                 &:hover{
-                background-color: #999999;
+                background-color: #6d6666;
                 }
             }
             //尚未購物 購物車商品是0

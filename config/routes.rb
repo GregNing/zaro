@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       # post :checkout
     end
     member do
-      patch :operations
+      patch :delete_items
       get :checkout
     end
   end
