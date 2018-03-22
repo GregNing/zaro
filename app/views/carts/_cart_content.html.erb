@@ -1,0 +1,174 @@
+<% extend CommonHelper %>
+<div class="cart-content">
+    <!-- 判斷購物車是否為空 -->
+  <% if current_cart.blank? %>
+    <div class="cart-empty">
+      <h4>
+        <%= fa_icon("shopping-cart lg", text: "購物車目前是空的唷~") %>        
+      </h4>
+      <%= link_to "BACK TO SHOPPING", products_path, class: "btn" %>
+    </div>
+  <% else %>
+     <!-- simple form -->
+    <%= simple_form_for current_cart , url:operations_cart_path(current_cart), method: :patch, remote: true do |f| %>
+    <%= f.input_field "", name: "cart-items-count", value: current_cart.cart_items.count ,id: "total-cart-items-count" ,type: "hidden" %>
+        <div class="table-responsive">
+        <table class="table table-shopping">
+          <thead>
+            <tr>
+              <!-- 全選 -->
+              <th class="td-checkbox">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" class="cart-select-all"/>                    
+                  </label>
+                  <span>全選</span>
+                </div>
+              </th>
+              <th class="products-info"><span>商品資訊</span></th>
+              <th class="text-center" style="width: 15%;">尺寸 / 數量</th>
+              <th class="text-right">單價</th>
+              <th class="text-right">小計</th>
+              <th class="text-right"style="padding-right: 35px;">刪除</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- 使用each_with_index方法，給每個商品加上編號好用 checkbox 控制 -->
+            <% @cart_items.each_with_index do |item, index| %>
+              <%= render "carts/cart_item", f: f, item: item, index: index %>
+            <% end %>            
+            <tr>
+              <td class="checked-to-delete" colspan="3">
+                <small>已選擇 <span id="checked-cart_items-count">0</span> 件</small>
+                <%= button_tag type: "button",id: "delete_cart_item_button",disabled: true ,data: {toggle: "modal", target: "#confirm-dialog" },class: "btn btn-raised btn-checked disabled",onclick: "confirm.delete_items()" do %>
+                刪除選中商品
+                <% end%>                
+                <%= button_tag "delete_item", value: true,name: "delete_items", id: "cart-btn-delete-all",class: "btn btn-default invisible" %>
+              </td>
+              <td colspan="3" class="td-total-price">
+                <div>
+                <span>Total</span>
+                <small>$</small>
+                <span class="total-price" id="total-price">                           
+                </span>
+                </div>
+              </td>
+              <td></td>
+            </tr>
+            <!-- 结算按钮 -->
+            <tr>
+              <td colspan="7" class="text-right">
+                <%= link_to "BACK TO SHOPPING", root_path,class: "btn btn-to-back" %>
+                <%= button_tag type: 'submit', name: "checkout",class: "btn-checkout btn btn-raise" do %>
+                去结算
+                <i class="material-icons">keyboard_arrow_right</i>
+                <% end %>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<script type='text/javascript'>
+var check_function  = (function() {
+  const totalcheckedcount = parseInt(document.getElementById('total-cart-items-count').value);
+    //多選
+    let checkall = () => {          
+    if (totalcheckedcount > 0) {
+      document.getElementsByClassName('cart-select-all')[0].addEventListener('change',function(e){          
+          let sum = 0;
+          //勾選所有checkkbox
+          for(let i=0;i< totalcheckedcount ;i++)
+          {
+            document.getElementById('cart-item-select-'+i).checked = this.checked;
+            sum += parseInt(document.getElementById('cart-item-total-price-'+i).innerHTML);            
+          }          
+          if (this.checked) {           
+            disabled_or_not(totalcheckedcount);
+            document.getElementById('total-price').innerHTML = sum;
+          }
+          else
+          {            
+            disabled_or_not(0);
+            document.getElementById('total-price').innerHTML = 0;
+          }
+          e.preventDefault();
+        },false)
+      };       
+    }
+    const checked_count_by_delete = document.getElementById('checked-cart_items-count');
+    //單選
+    let checksingle = () => {
+      for (let index = 0; index < totalcheckedcount; index++) {
+        const element = document.getElementById('cart-item-select-' + index);        
+        element.addEventListener('change',function(e) {  
+          let delete_count_value = parseInt(checked_count_by_delete.innerHTML);
+          //取得id
+          const index = this.id.substring(this.id.length-1,this.id.length);          
+          //取得item 小計
+          let itemprice = parseInt(document.getElementById('cart-item-total-price-' + index).innerHTML);          
+          if (this.checked) {            
+            disabled_or_not(delete_count_value += 1);
+            price(itemprice,this.checked);
+          } else {            
+            disabled_or_not(delete_count_value -= 1);
+            price(itemprice,false);
+          }
+          //設定全勾選狀態
+          let checked_count = document.querySelectorAll('input[type="checkbox"].item-check:checked').length;
+
+          if (checked_count === totalcheckedcount) {
+            document.getElementsByClassName('cart-select-all')[0].checked = true;
+            
+          }else{
+            document.getElementsByClassName('cart-select-all')[0].checked = false;
+          }
+          e.preventDefault();
+        });
+      }
+    }
+    //將刪除選中button disable 以及控制選擇幾件數
+    let disabled_or_not = (delete_count_value ) =>{
+      const tweak_disabled= document.getElementsByClassName('btn-checked')[0].classList;      
+      const  delete_cart_item_buttong = document.getElementById('delete_cart_item_button');
+      checked_count_by_delete.innerHTML = delete_count_value;
+      //設定css 以及 disabled狀態
+      if (delete_count_value > 0) {
+        tweak_disabled.remove('disabled');
+        delete_cart_item_buttong.removeAttribute("disabled");
+      }else {
+        tweak_disabled.add('disabled');
+        delete_cart_item_buttong.setAttribute("disabled",true);
+      }
+    }
+    //計算總金額
+    let price = (price, checked_status) => {      
+      let total_price_element = document.getElementById('total-price');
+      let totalprice = parseInt(total_price_element.innerHTML) || 0;      
+      //加總
+      if (checked_status) {
+          totalprice += price;
+      }else{
+        totalprice -= price;
+      }
+      total_price_element.innerHTML = totalprice;
+    }
+    //取得所有function
+    let allfunctoin = () =>{
+      checkall(); 
+      checksingle();
+    }
+    return{
+      checkall: checkall,
+      checksingle: checksingle,
+      init: allfunctoin,
+    };
+}());
+(function() {      
+  check_function.init();
+})();
+</script>

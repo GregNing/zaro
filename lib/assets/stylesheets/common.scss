@@ -2,25 +2,6 @@ body{
     background-color: #fff
 }
 
-.alert-fixed{
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 8%;
-    z-index: 9;
-    opacity: .8;
-    border-radius: 0 0 5px 5px;
-    width: 100%;
-    -webkit-transition: all 1.5s ease-in-out;
-    -moz-transition: all 1.5s ease-in-out;
-    -o-transition: all 1.5s ease-in-out;
-    -ms-transition: all 1.5s ease-in-out;
-    transition: all 1.5s ease-in-out;
-    &.alert-hide{
-        padding: 0;        
-    }
-}
-
 /* zaro-logo */
 .navbar-header a.zaro-logo {
 	color: #5e5e5e;
@@ -34,21 +15,21 @@ body{
     letter-spacing: 3.4px;
     line-height: 1;
 }
-
-.zaro-logo::before {
-	content: '';
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	border-width: 2px 0;
-	border-color: #282828;
-	border-style: solid;
-	left: 0;
-	-webkit-transform: translate3d(-101%,0,0);
-	transform: translate3d(-101%,0,0);
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: transform 0.5s;
-}
+//會出現上下border style樣式
+// .zaro-logo::before {
+// 	content: '';
+// 	position: absolute;
+// 	height: 100%;
+// 	width: 100%;
+// 	border-width: 2px 0;
+// 	border-color: #282828;
+// 	border-style: solid;
+// 	left: 0;
+// 	-webkit-transform: translate3d(-101%,0,0);
+// 	transform: translate3d(-101%,0,0);
+// 	-webkit-transition: -webkit-transform 0.5s;
+// 	transition: transform 0.5s;
+// }
 
 .zaro-logo:hover::before {
 	-webkit-transform: translate3d(0,0,0);

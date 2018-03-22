@@ -1,0 +1,4 @@
+let quantityelement = document.getElementById('quantity-input');
+let quantity = <%= @quantity %>
+quantityelement.setAttribute('max',  quantity );
+parseInt(quantityelement.value) > parseInt(quantity) && (quantityelement.value = quantity);

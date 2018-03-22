@@ -14,4 +14,5 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
 #告訴 Rails編譯 assets 時多編譯這兩個檔案
-Rails.application.config.assets.precompile += %w( admin.css admin.js adminlayout.js adminlayout.scss layout.js layout.scss common.scss productindex.js common.js)
+Rails.application.config.assets.precompile += %w( admin.css admin.js adminlayout.js adminlayout.scss layout.js layout.scss common.scss productindex.js common.js
+                                                  shoppingcarts.scss)

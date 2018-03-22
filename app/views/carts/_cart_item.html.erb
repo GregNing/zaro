@@ -1,0 +1,88 @@
+<tr>
+  <!-- 複選 -->
+  <td style="vertical-align: middle;">
+    <div class="checkbox">
+    <%= label_tag "" do %>
+      <%= check_box_tag "item_ids[]",item.id,false,class: "item-check",id:"cart-item-select-#{index}" %>
+    <% end %>      
+    </div>
+  </td>
+  <!-- 商品資訊 -->
+  <td>
+    <div class="cart_items_info">
+    <%= link_to product_path(item.product), class: "cart-item-container" do %>
+      <%= render_product_image(item.product) %>
+      <!-- 內容 -->
+      <p class="info_name"><%= item.product.name %></p>
+      <p><%= render_description_format(item.product) %></p>
+    <% end %>
+    </div>
+  </td>  
+  <!-- 數量 -->
+  <td class="size-quantity">    
+    <div class="btn-group">    
+        <!-- 在這將 product 轉為 hash 判斷庫存量有多少 -->
+        <% @producthash =  item.product.attributes %>        
+        <% eval(item.quantity).each do |k, v|  %>
+          <div class="selection">
+             <%= content_tag(:p, "尺寸- #{k.upcase}") %>
+            <%= select_tag 'quantity', options_for_select(1..@producthash[k.to_s] , v),
+            onchange: "javascript: cartitem_tweak.changeCartitemquantity(#{item.product_id},#{k.to_json},this.value);" ,class: "quantity-select"%>
+          </div>
+         <% end %>                        
+    </div>
+  </td>
+  <!-- 單價 -->
+  <td class="td-proudct-price">
+    <small>$</small>
+    <%= render_calculate_total_price(item.product.price) %>
+  </td>
+  <!-- 總計 -->
+  <td class="td-cart_item-price">
+    <small>$</small>
+    <span id="cart-item-total-price-<%= index %>">      
+      <%= render_calculate_total_price(item.cartitem_total_price) %>
+    </span>
+  </td>
+  <!-- 删除按钮 -->
+  <td class="td-delete-actions">
+    <!-- 偽裝刪除鈕 -->
+    <%= button_tag type: 'button', rel: "tooltip",onclick: "javascript: confirm.confirmRemoveCartItem(#{item.id},'確定將#{item.product.name} 從購物車移除嗎!?')" ,
+    data: {title: "Remove item",toggle: "modal",target: "#confirm-dialog" },class: "btn btn-simple" do %>
+        <i class="material-icons">close</i>
+    <% end %>
+    <!-- 實際删除按钮，不顯示於頁面 -->
+    <%= f.button :submit, name: "delete_item", value: item.id, class: "invisible", id: "cart-btn-delete-#{item.id}" %>    
+  </td>
+</tr>
+
+<script type='text/javascript'>
+var cartitem_tweak = (function () {
+    let changeCartitemquantity = (product,size, quantity ) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState == XMLHttpRequest.DONE) {   // xhr.DONE == 4
+            if (xhr.status == 200) {                              
+                eval(xhr.responseText);
+            }
+            else if (xhr.status == 400) {
+                console.log('There was an error 400');
+            }
+            else {
+                console.log('something else other than 200 was returned');
+            }
+            }
+        };
+        xhr.open("PATCH", `cart_items/${product}`, true);
+        
+        let data = new FormData()
+        data.append('size', size);
+        data.append('quantity', quantity);        
+        xhr.setRequestHeader("X-CSRF-Token",document.querySelector('meta[name="csrf-token"]').content);
+        xhr.send(data);      
+    };
+    return {
+        changeCartitemquantity: changeCartitemquantity,    
+    };
+}());
+</script>

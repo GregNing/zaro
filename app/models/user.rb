@@ -16,6 +16,7 @@
 #  last_sign_in_ip        :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  nickname               :string
 #
 
 class User < ApplicationRecord
@@ -26,6 +27,7 @@ class User < ApplicationRecord
   has_many :products
   has_many :orders
   has_many :categories
+  has_one :cart
   validates :nickname,presence: {message: "請輸入姓名!"}
   def admin?
     self.is_admin

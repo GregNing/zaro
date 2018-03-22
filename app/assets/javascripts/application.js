@@ -17,4 +17,6 @@
 //= require material.min
 //= require nouislider.min
 //= require common
+//= require layout
+//= require productindex
 //= require turbolinks

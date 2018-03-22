@@ -2,12 +2,13 @@
 <html>
   <head>
     <title><%= yield :zaro_title %></title>    
-    <%= csrf_meta_tags %>  
+    <%= csrf_meta_tags %>
+    <meta name="turbolinks-cache-control" content="no-cache">
     <%= stylesheet_link_tag    'application', media: 'all' , 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' , 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body id="<%= "#{controller_name}-#{action_name}" %>">
     <div class="container-fluid">
       <div class="row">        
         <%= render 'common/navbar' %>
@@ -15,6 +16,7 @@
             <%= yield %>
       </div>
     </div>
+    <%= render 'common/confirm' %>
     <%= render 'common/footer' %>
   </body>
 </html>

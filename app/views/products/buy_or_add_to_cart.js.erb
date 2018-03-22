@@ -1,0 +1,4 @@
+document.getElementsByClassName('cart-nav')[0].innerHTML = '<%= escape_javascript render(partial: "common/cart")%>'
+document.getElementById('quantity-input').value = 1;
+$('.navbar').after('<%= escape_javascript render(partial: "common/flashes") %>');
+slideup();

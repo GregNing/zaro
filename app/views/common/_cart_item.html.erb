@@ -1,0 +1,33 @@
+<% @quantityitem = eval(item.quantity) %>
+<tr>
+  <td class="td-pic">
+    <%= link_to product_path(item.product), class: "img-container img-rounded img-raised" do %>
+      <%= image_tag(item.product.image.url) %>
+    <% end %>
+  </td>
+  <td class="td-size">
+        <% @quantityitem.each do |k , v| %>
+        <div>
+        <span><%= "SIZE: #{k.upcase}"  %></span>
+        <span><%= "QNY: #{v}"  %></span>
+        </div>        
+        <% end %>
+  </td>
+  <td class="td-number text-right">
+    <% if item.quantity == 0 %>
+    已售完
+    <% else %>
+    <small>$</small>
+    <%= render_calculate_total_price(item.cartitem_total_price) %>
+    NT
+    <% end %>
+  </td>
+  <td class="remove-items">
+    <button type="button" rel="tooltip" title="Remove item" class="btn btn-simple" 
+    data-toggle="modal" data-target="#confirm-dialog" 
+    onclick='javascript: confirm.confirmRemoveCartItem("<%= item.id %>", "確定將 <%= item.product.name %> 從購物車移除嗎?!")'>
+      <i class="material-icons">close</i>
+    </button>
+    <%= link_to("刪除", cart_item_path(item), class: "invisible", method: :delete, remote: true, id: "cart-btn-delete-#{item.id}") %>
+  </td>
+</tr>

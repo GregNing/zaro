@@ -1,0 +1,5 @@
+document.getElementsByClassName('cart-nav')[0].innerHTML = '<%= j(render partial: "common/cart")  %>';
+document.querySelector('.card-body .cart-content').innerHTML = '<%= j (render partial: "carts/cart_content")  %>';
+//觸發 material init checkbox 
+$.material.init();
+check_function.init();

@@ -13,6 +13,9 @@
 #  image       :string
 #  position    :integer
 #  category_id :integer
+#  s           :integer          default(0)
+#  m           :integer          default(0)
+#  l           :integer          default(0)
 #
 
 class Product < ApplicationRecord
