@@ -19,33 +19,15 @@ class CartItemsController < ApplicationController
         @product = Product.find(params[:id])
 
         extend CommonHelper
-        @cart = current_cart                
-        #此錯誤為購物車無此商品
-        if @cart.products.include?(@product)
-            #將 product 轉hsah 且算出型號的庫存
-            @product_size_quantity = @product.attributes[@size].to_i            
-            if @quantity <= @product_size_quantity
-                #找出 cart_item 
-                @cart_item = @cart.cart_items.find_by(product_id: @product.id)
-                #將text 轉 hash
-                @cart_item_quantity = eval(@cart_item.quantity)
-                #將size轉hash                
-                #給予型號庫存
-                @cart_item_quantity[eval(":"+@size)] = @quantity
-                #更新庫存
-                @cart_item.update_attributes(quantity: @cart_item_quantity.to_s)
-
-                respond_to do |format|
-                format.js { render "cart_item"}
-                end                
-            else
-                flash.now[:warning] = "已超出#{@product.name}庫存！"
-            end
+        if current_cart.update_cart_items!(@product,@size,@quantity)
+            respond_to do |format|
+            format.js { render "cart_item"}
+            end                
         else
-            flash.now[:alert] = "購物車無#{@product.name}！"
+            flash.now[:warning] = "購物車無#{@product.name}或是商品庫存不足！"
         end
     end
-    def destroy                
+    def destroy
         @product = @cart_item.product
         @cart_item.destroy
         flash.now[:notice] = "已成功將#{@product.name}從購物車移除"

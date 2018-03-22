@@ -32,6 +32,27 @@ class Cart < ApplicationRecord
         #size_quantity_to_change會回傳該size的庫存量        
         return (@cart_item.size_quantity(size) + quantity <= sizequantity) ? @cart_item.change_quantity!(size,quantity)  : false
     end
+    #更新購物車商品
+    def update_cart_items!(product,size,quantity)
+        @result = false
+        if products.include?(product)
+            #將 product 轉hsah 且算出型號的庫存
+            @product_size_quantity = product.attributes[size].to_i            
+            if quantity <= @product_size_quantity                
+                #找出 cart_item 
+                @cart_item = cart_items.find_by(product_id: product.id)                
+                #將text 轉 hash
+                @cart_item_quantity = eval(@cart_item.quantity)
+                #將size轉hash                
+                #給予型號庫存
+                @cart_item_quantity[eval(":"+size)] = quantity
+                #更新庫存
+                @cart_item.update_attributes(quantity: @cart_item_quantity.to_s)
+                @result = true
+            end
+        end
+        return @result
+    end
     #計算總共金額
     def total_price
         sum = 0.0
