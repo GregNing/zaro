@@ -1,6 +1,7 @@
 class CartItemsController < ApplicationController
     # before_action :authenticate_user!
-    before_action :find_cart_item_id, except: [:update]  
+    before_action :find_cart_item_id, except: [:update]
+    before_action :get_carts_into
     # require 'common_helper'
     # require File.expand_path("../lib/modules/common_helper", __FILE__)  
     respond_to :html, :js
@@ -18,8 +19,7 @@ class CartItemsController < ApplicationController
         #產品代號
         @product = Product.find(params[:id])
 
-        extend CommonHelper
-        if current_cart.update_cart_items!(@product,@size,@quantity)
+        if @cart.update_cart_items!(@product,@size,@quantity)
             respond_to do |format|
             format.js { render "cart_item"}
             end                
@@ -41,4 +41,9 @@ class CartItemsController < ApplicationController
         #在這只需要更新庫存量
         params.require(:cart_item).permit(:quantity)
     end
+    def get_carts_into
+        extend CommonHelper
+        @cart = current_cart
+        @cart_items = @cart.get_items
+    end    
 end

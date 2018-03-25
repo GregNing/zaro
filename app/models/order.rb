@@ -31,11 +31,11 @@ class Order < ApplicationRecord
   end
   #付款方式 使用維信 或是 支付寶付款
   def set_payment_with!(method)
-    self.update_columns(payment_method: method )
+    self.update_attributes(payment_method: method.to_s )
   end
   #已付過款
   def pay!
-    self.update_columns(is_paid: true )
+    self.update_attributes(is_paid: true )
   end
   include AASM
 

@@ -1,7 +1,7 @@
-class CartsController < ApplicationController    
+class CartsController < ApplicationController
+    #加入carts 相關資訊
+    before_action :get_carts_into
     def index
-        extend CommonHelper
-        @cart_items = current_cart.get_items
     end
     
     def operations        
@@ -14,8 +14,7 @@ class CartsController < ApplicationController
         end
     end
     #結算頁面
-    def checkout     
-           
+    def checkout         
         if params[:item_ids].present?
         @items = CartItem.where(id: params[:item_ids])
         @order = Order.new
@@ -24,12 +23,6 @@ class CartsController < ApplicationController
             flash.now[:alert] = "尚未挑選任何商品!"
             redirect_back fallback_location: root_path            
         end
-    end
- 
-    def clean
-        extend CommonHelper
-        current_cart.clean!
-        redirect_to carts_path, warning: "購物車已經清空!"
     end
 
     #刪除多個商品 多選
@@ -43,5 +36,12 @@ class CartsController < ApplicationController
         respond_to do |format|
         format.js { render "cart_items/cart_item"}
         end      
+    end
+    private
+    #取的相關購物車資訊
+    def get_carts_into
+        extend CommonHelper
+        @cart = current_cart
+        @cart_items = @cart.get_items
     end
 end

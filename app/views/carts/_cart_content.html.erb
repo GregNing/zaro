@@ -1,7 +1,6 @@
-<% extend CommonHelper %>
 <div class="cart-content">
     <!-- 判斷購物車是否為空 -->
-  <% if current_cart.blank? %>
+  <% if @cart.blank? %>
     <div class="cart-empty">
       <h4>
         <%= fa_icon("shopping-cart lg", text: "購物車目前是空的唷~") %>        
@@ -10,8 +9,8 @@
     </div>
   <% else %>
      <!-- simple form -->
-    <%= simple_form_for current_cart , url:operations_cart_path(current_cart), method: :patch, remote: true do |f| %>
-    <%= f.input_field "", name: "cart-items-count", value: current_cart.cart_items.count ,id: "total-cart-items-count" ,type: "hidden" %>
+    <%= simple_form_for @cart , url:operations_cart_path(@cart), method: :patch, remote: true do |f| %>
+    <%= f.input_field "", name: "cart-items-count", value: @cart_items.count ,id: "total-cart-items-count" ,type: "hidden" %>
         <div class="table-responsive">
         <table class="table table-shopping">
           <thead>
@@ -59,11 +58,10 @@
             <tr>
               <td colspan="7" class="text-right">
                 <%= link_to "BACK TO SHOPPING", root_path,class: "btn btn-to-back" %>
-                <%= button_tag type: 'submit', name: "checkout",value: true,class: "btn-checkout btn btn-raise" do %>
+                <%= button_tag type: 'submit', name: "checkout",value: true,id: 'checkout' ,class: "btn-checkout btn btn-raise" do %>
                 去结算
                 <i class="material-icons">keyboard_arrow_right</i>
                 <% end %>
-
               </td>
             </tr>
           </tbody>
@@ -90,11 +88,13 @@ var check_function  = (function() {
           if (this.checked) {           
             disabled_or_not(totalcheckedcount);
             document.getElementById('total-price').innerHTML = sum;
+            push_cart_item_to_array(this.id,this.checked);
           }
           else
           {            
             disabled_or_not(0);
             document.getElementById('total-price').innerHTML = 0;
+            push_cart_item_to_array(this.id,false);
           }
           e.preventDefault();
         },false)
@@ -112,10 +112,12 @@ var check_function  = (function() {
           let itemprice = parseInt(document.getElementById('cart-item-total-price-' + index).innerHTML);          
           if (this.checked) {            
             disabled_or_not(delete_count_value += 1);
-            price(itemprice,this.checked);            
+            price(itemprice,this.checked);
+            push_cart_item_to_array(this.id,this.checked);
           } else {            
             disabled_or_not(delete_count_value -= 1);
             price(itemprice,false);
+            push_cart_item_to_array(this.id,false);
           }
           //設定全勾選狀態
           let checked_count = document.querySelectorAll('input[type="checkbox"].item-check:checked').length;
@@ -157,24 +159,51 @@ var check_function  = (function() {
     }
     //設定ttile step狀態
     let set_step1_titlestyle = () => {
-      if (window.location.pathname === "<%= carts_path %>") {
-        document.getElementsByClassName('step1')[0].classList.add('step_to_shopping');          
+      document.getElementsByClassName('step1')[0].classList.add('step_to_shopping');     
+    }
+    var cart_item = [];
+    //刪除array function
+    function removeArray(arr) {
+        let what, a = arguments, L = a.length, ax;
+        while (L > 1 && arr.length) {
+            what = a[--L];
+            while ((ax= arr.indexOf(what)) !== -1) {
+                arr.splice(ax, 1);
+            }
+        }
+        return arr;
+    }
+    //新增移除id
+    let push_cart_item_to_array = (id , add_or_remove) =>{
+      id = id.substring(id.length-1, id.length);
+      if (add_or_remove) {
+        cart_item.push(id);
+      } else {
+        removeArray(cart_item,id);
       }      
+    }
+    //刪除已勾選商品
+    let delete_items = function confirmRemoveCartItems() {
+        let dialog = document.getElementById('confirm-dialog');
+        dialog.querySelector(".modal-body").innerHTML = "確定刪除選中的商品!?";
+        dialog.querySelector(".btn-confirm").addEventListener('click',
+            (e) => {
+               document.getElementById('cart-btn-delete-all').click();               
+            }, false);
+    }
+    let checkout_to_order = () => {
+      document.getElementById('checkout').addEventListener('click',
+      (e) => {
+      
+        
+        e.preventDefault(); 
+        },false)
     }
     //取得所有function
     let allfunctoin = () =>{
       checkall(); 
       checksingle();
       set_step1_titlestyle();
-    }
-    let delete_items = function confirmRemoveCartItems() {
-        let dialog = document.getElementById('confirm-dialog');
-        dialog.querySelector(".modal-body").innerHTML = "確定刪除選中的商品!?";
-        dialog.querySelector(".btn-confirm").addEventListener('click',
-            (e) => {
-                document.getElementById('cart-btn-delete-all').click();
-                e.preventDefault();
-            }, false);
     }    
     return{
       checkall: checkall,
