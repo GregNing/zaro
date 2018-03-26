@@ -4,25 +4,27 @@ RSpec.describe Order, type: :model do
     describe "#add new Order" do
         context "new order" do
             #use let to new order
+            #新增訂單
             let(:order) { Order.new }
+            #取得使用者
+            let(:user) { User.first }
+            #購物車
+            let(:cart) { Cart.first }
+
             it "is invalid order" do
             order.total = 5
-    # @order = Order.new(order_params)
-    # @order.user = current_user
-    # @order.total = current_cart.total_price
-    # if @order.save
-    #     current_cart.get_items.each do |cart_item|
-    #       product_list = ProductList.new
-    #       product_list.order = @order
-    #       product_list.product_name = cart_item.product.name
-    #       product_list.product_price = cart_item.product.price
-    #       product_list.quantity = cart_item.quantity
-    #       product_list.save
-    #     end
-    #   current_cart.clean!
-            expect(order.total).to eq(5)
+            # productList_create
+            order.billing_name = "test_billing_name"
+            order.billing_address = "test_billing_address"
+            order.shipping_name = "test_shipping_name"
+            order.shipping_address = "test_shipping_address"            
+            order.user = user            
+            order.save!
+            byebug
+            cart.cart_items.includes(:product).each { |cart_item|  order.productList_create!(cart_item) }
+            cart.clean!
+            expect(order).to be_valid            
             end
-
         end
     end
 end

@@ -37,6 +37,16 @@ class Order < ApplicationRecord
   def pay!
     self.update_attributes(is_paid: true )
   end
+  #新增產品列表 在 訂單上
+  def productList_create!(cart_item)
+    byebug
+    product_lists = ProductList.new      
+    product_lists.order = self
+    product_lists.product_name = cart_item.product.name
+    product_lists.product_price = cart_item.product.price
+    product_lists.quantity = cart_item.quantity
+    product_lists.save!
+  end
   include AASM
 
   aasm do

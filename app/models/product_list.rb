@@ -6,7 +6,7 @@
 #  order_id      :integer
 #  product_name  :string
 #  product_price :integer
-#  quantity      :integer
+#  quantity      :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #

@@ -27,7 +27,7 @@ class Product < ApplicationRecord
     validates :s, numericality: { message: "請輸入數字!"  }
     validates :m, numericality: { message: "請輸入數字!"  }
     validates :l, numericality: { message: "請輸入數字!"  }
-    
+    #掛上 掛載carrwave
     mount_uploader :image, ImageUploader
     belongs_to :user   
     belongs_to :category
