@@ -1,54 +1,45 @@
-<% extend CommonHelper %>
 <div class="cart-content">
-    <!-- 判斷購物車是否為空 -->
-  <% if current_cart.blank? %>
-    <div class="cart-empty">
-      <h4>
-        <%= fa_icon("shopping-cart lg", text: "購物車目前是空的唷~") %>        
-      </h4>
-      <%= link_to "BACK TO SHOPPING", products_path, class: "btn" %>
-    </div>
-  <% else %>    
-        <div class="table-responsive">
-        <table class="table table-shopping">
-          <thead>
-            <tr>
-              <th class="products-info"><span>商品資訊</span></th>
-              <th class="text-center" style="width: 15%;">尺寸 / 數量</th>
-              <th class="text-right">單價</th>
-              <th class="text-right">小計</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- 購物車詳細內容 -->
-            <% totalprice = 0 %>
-            <% @items.each do |item| %>
-                <%= render "carts/cart_item_step2", item: item %>
-                <%  totalprice += item.cartitem_total_price%>
-            <% end %>
-            <tr>
-              <td colspan="4" style="text-align: right;" class="td-total-price">
-                <div>
-                <span>Total</span>
-                <small>$</small>
-                <span class="total-price" id="total-price">
-                <%= totalprice %>
-                </span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="table-responsive">
+      <%= simple_form_for @order do |f| %>
+      <table class="table table-shopping">
+        <thead>
+          <tr>
+            <th class="products-info"><span>商品資訊</span></th>
+            <th class="text-center" style="width: 15%;">尺寸 / 數量</th>
+            <th class="text-right">單價</th>
+            <th class="text-right">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+        <!-- 總價 -->
+        <% totalprice = 0 %>
+          <% @items.each do |item| %>
+          <%= f.input_field "", name: "items_id[]", value: item.id , type: "hidden" %>
+              <!-- 購物車商品詳細內容 -->
+              <%= render "carts/cart_item_step2", item: item %>
+              <%  totalprice += item.cartitem_total_price%>
+          <% end %>        
+          <tr>
+            <td colspan="4" style="text-align: right;" class="td-total-price">
+              <div>
+              <span>Total</span>
+              <small>$</small>
+              <span class="total-price" id="total-price">
+              <%= totalprice %>
+              </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <% end %>
+      <!-- form end -->
+      <div class="order-info">
+        
       </div>
-    <% end %>
-
+    </div>    
 </div>
-     <!-- simple form -->
-     
-     <% if false %>                   
-    <%= simple_form_for current_cart , url:operations_cart_path(current_cart), method: :patch, remote: true do |f| %>
-    <% end %>
-    <% end %>
+
 <script type='text/javascript'>
 var check_function  = (function() {  
     //設定ttile step狀態

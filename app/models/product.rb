@@ -32,10 +32,10 @@ class Product < ApplicationRecord
     belongs_to :user   
     belongs_to :category
     has_many :cart_items, dependent: :destroy
-    #大小型號
-    #has_many :sizes, dependent: :destroy    
     #允許直接透過Product 塞資料
     # accepts_nested_attributes_for :sizes
+    #型號 model
+    # has_many :sizes
     #排序所使用
     acts_as_list
     scope :order_position, ->{ order("position ASC") }

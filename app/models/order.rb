@@ -2,32 +2,31 @@
 #
 # Table name: orders
 #
-#  id               :integer          not null, primary key
-#  total            :integer          default(0)
-#  user_id          :integer
-#  billing_name     :string
-#  billing_address  :string
-#  shipping_name    :string
-#  shipping_address :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  token            :string
-#  is_paid          :boolean          default(FALSE)
-#  payment_method   :string
-#  aasm_state       :string           default("order_placed")
+#  id                 :integer          not null, primary key
+#  total              :integer          default(0)
+#  user_id            :integer
+#  shipping_name      :string
+#  shipping_address   :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  token              :string
+#  is_paid            :boolean          default(FALSE)
+#  payment_method     :string
+#  aasm_state         :string           default("order_placed")
+#  shipping_cellphone :integer
 #
 
 class Order < ApplicationRecord
   before_create :generate_token
   belongs_to :user
-  validates :billing_name, presence: {message: "請填寫購買人姓名!"}
-  validates :billing_address, presence: {message: "請填寫購買人地址!"}
   validates :shipping_name, presence: {message: "請填寫收件人姓名!"}
   validates :shipping_address, presence: {message: "請填寫收件人地址!"}
-  has_many :product_lists
+  validates :shipping_cellphone, presence: {message: "請填寫收件人電話!"}
+  has_many :order_details ,dependent: :destroy
   #隨機取得一組亂碼要給訂單編號使用 SecureRandom可以產生亂碼
+  # 訂單編號 = 現在時間 + 亂碼
   def generate_token
-    self.token = SecureRandom.uuid
+    self.token = Time.now.strftime("%Y-%m-%d-")+ SecureRandom.uuid.upcase
   end
   #付款方式 使用維信 或是 支付寶付款
   def set_payment_with!(method)
@@ -38,15 +37,17 @@ class Order < ApplicationRecord
     self.update_attributes(is_paid: true )
   end
   #新增產品列表 在 訂單上
-  def productList_create!(cart_item)
-    byebug
-    product_lists = ProductList.new      
-    product_lists.order = self
-    product_lists.product_name = cart_item.product.name
-    product_lists.product_price = cart_item.product.price
-    product_lists.quantity = cart_item.quantity
-    product_lists.save!
+  def order_details_create!(cart_item)
+    order_detail = OrderDetail.new      
+    order_detail.order = self
+    order_detail.image = cart_item.product.image
+    order_detail.product_name = cart_item.product.name
+    order_detail.product_price = cart_item.product.price    
+    order_detail.product_description = cart_item.product.description
+    order_detail.quantity = cart_item.quantity
+    order_detail.save!
   end
+
   include AASM
 
   aasm do

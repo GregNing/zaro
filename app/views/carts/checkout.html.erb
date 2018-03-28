@@ -1,5 +1,4 @@
 <% provide :zaro_title, "ZARO-購物車" %>
-<% extend CommonHelper %>
   <div class="col-md-12">
   <div class="carts-body">
     <div class="card card-nav-tabs">      
@@ -9,13 +8,7 @@
           <span>Shopping Cart</span>
         </div>
         <div class="card-body">
-        <h4 class="card-title row">
-            <ul>
-            <li class="step1"><span>1. CHECK ORDER 確認購買清單</span></li>
-            <li class="step2"><span>2. WRITE ORDER INFO 填寫運送資料</span></li>
-            <li class="step3"><span>3. BINGO! 購物完成</span></li>
-            </ul>
-        </h4>
+        <%= render 'step_to_order' %>
         <%= render 'cart_step2' %>
         </div>
     </div>

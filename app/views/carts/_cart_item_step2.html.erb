@@ -2,7 +2,7 @@
   <!-- 商品資訊 -->
   <td>
     <div class="cart_items_info">
-    <%= link_to product_path(item.product), class: "cart-item-container" do %>
+    <%= link_to product_path(item.product),target: "_blank" ,class: "cart-item-container" do %>
       <%= render_product_image(item.product) %>
       <!-- 內容 -->
       <p class="info_name"><%= item.product.name %></p>

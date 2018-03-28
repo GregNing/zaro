@@ -17,8 +17,7 @@ class CartsController < ApplicationController
     def checkout         
         if params[:item_ids].present?
         @items = CartItem.where(id: params[:item_ids])
-        @order = Order.new
-        
+        @order = Order.new        
         else
             flash.now[:alert] = "尚未挑選任何商品!"
             redirect_back fallback_location: root_path            

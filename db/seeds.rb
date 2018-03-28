@@ -40,7 +40,7 @@ if Rails.env == "test"
     product.description = "美妙人生舒適彈力後印字棉質上衣"
     product.price = 399
     product.user_id = 1
-    product.image = "1-bs__1_.webp"
+    product.image =  avatar {File.open("#{Rails.root}/app/assets/images/category/color/black.jpg")}
     product.category_id = 1
     product.s = 2
     product.m = 2
