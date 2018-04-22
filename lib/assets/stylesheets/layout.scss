@@ -500,6 +500,7 @@ nav.navbar-inedx{
                     opacity: 1;
                     visibility: visible;        
                     margin-top: 20px;
+                    padding: 1px 0;
                     &::before{
                         content: "";
                         border-bottom: 10px solid #f7f7f7;
@@ -512,6 +513,7 @@ nav.navbar-inedx{
                 }
                 &.open .dropdown-menu{
                     margin-top: 20px;
+                    padding: 1px 0;
                     &::before{
                         content: "";
                         border-bottom: 10px solid #f7f7f7;
@@ -924,6 +926,25 @@ nav.navbar-inedx{
                     color: #757575;
                 }
             }
-        }        
+        }
+        .cart-footer{
+            border-top: 1px solid #c5c5c5;
+            text-align: center;
+            font-size: 16px;            
+            a{
+                display: block;    
+                transition: all .3s ease;                
+                color: #8d8d8d;
+                line-height: 1.375;
+                padding: 1.2em  !important;
+                margin: auto !important;
+                text-decoration: none;
+                cursor: pointer;
+                &:hover{
+                    color: #343434;
+                    background-color: #ebebeb;
+                }
+            }
+        }
     }
 }
