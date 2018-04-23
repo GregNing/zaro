@@ -24,6 +24,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  #個人店到店地址
+  has_many :addresses,dependent: :destroy
   has_many :products
   has_many :orders
   has_many :categories
